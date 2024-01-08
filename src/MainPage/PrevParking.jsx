@@ -37,7 +37,7 @@ const PrevParking = ({ closeCheck, setCloseCheck, notify }) => {
       <div className="previousJobChildDiv">
         { loading? <Loading /> :
           check2?.state == 'subareaview' ?
-            <SubArea subArea={subArea} setSubArea={setSubArea} selectObj={selectObj} check={check2} setCheck={setCheck2} 
+            <SubArea notify={notify} subArea={subArea} setSubArea={setSubArea} selectObj={selectObj} check={check2} setCheck={setCheck2} 
             timeInfo={timeInfo} timeInfo2={timeInfo2} setCheck3={setCheck} loading={loading} setLoading={setLoading}
             closeCheck={closeCheck} setCloseCheck={setCloseCheck}/>
             :

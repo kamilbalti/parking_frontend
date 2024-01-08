@@ -99,7 +99,7 @@ const MyRouter = () => {
             setAllSlotDetail(false)
             setBookingData(false)
         }
-    }, [temptoken])
+    }, [temptoken, pathname])
 
     // useEffect(() => {
     //     // setTimeout(() => {    
