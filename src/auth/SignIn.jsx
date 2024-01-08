@@ -13,6 +13,7 @@ import { url } from '../config';
 
 const SignIn = ({setAuthCheck}) => {
     const [email, setEmail] = useState("")
+    const [ wait, setWait ] = useState(false)
     const [password, setPassword] = useState("")
     const dispatch = useDispatch()
     const [ authOpt, setAuthOpt ] = useState(false)
@@ -27,6 +28,7 @@ const SignIn = ({setAuthCheck}) => {
     }
     const notify = (message) => toast(message)
     const LogIn = (e) => {
+        setWait(true)
         // dispatch(setUserDetail('loading'))
         // const response = 
         axios.post((`${url}/auth/logIn`), {
@@ -37,11 +39,13 @@ const SignIn = ({setAuthCheck}) => {
             localStorage.setItem("token", res.data && JSON.stringify(res.data))
             // notify('Login Successful')
             dispatch(setUserDetail(res.data ? res.data : false))
+            setWait(false)
         }).catch(async (err) => {
             notify('UnSuccessful: ' + (typeof err?.response?.data == 'string' ? err?.response?.data : err))
             console.log(err)
             setError(err)
             dispatch(setUserDetail(false))
+            setWait(false)
         })
     }
 
@@ -63,7 +67,7 @@ const SignIn = ({setAuthCheck}) => {
                 <>
                 <Input authOpt={authOpt} si={true} setErr={setError} name={'Email'} inputClass={'signUpTextInput'} inputVal={email} setInputVal={setEmail} />
                 <Input authOpt={authOpt} si={true} err={error} setErr={setError} passBorder={passBorder} setPassBorder={setPassBorder} name={'Password'} inputClass={'signUpTextInput signUpPassInput'} inputVal={password} setInputVal={setPassword} type='pass' />
-                <button disabled={condition || error} className={condition || error ? 'signUpButton signUpDisable' : 'signUpButton'} type='submit'>Sign In</button>
+                <button disabled={wait || condition || error} className={condition || error ? 'signUpButton signUpDisable' : 'signUpButton'} type='submit'>Sign In</button>
                 </>
                 <p className='signUpPara'>Don't have an account <Link className='signUpLink' onClick={() => setAuthOpt(true)}>Register</Link></p>
             </form>

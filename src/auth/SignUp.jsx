@@ -10,6 +10,7 @@ import Input from '../input';
 import Option from './Option';
 import { url } from '../config';
 const SignUp = ({authOpt, setAuthCheck, notify}) => {
+    const [wait, setWait] = useState(false)
     const [reqCheck, setReqCheck] = useState(false)
     const dispatch = useDispatch()
     const [email, setEmail] = useState("")
@@ -54,6 +55,7 @@ useEffect(() => {
     }
 
     const CreateUser = () => {
+        setWait(true)
         const response = axios.post((`${url}/auth/register`),{
             email, password, name
         }, config).then(async(res) => {
@@ -66,8 +68,10 @@ useEffect(() => {
             setName("")
             setEmail("")
             setPassword("")
+            setWait(false)
         }).catch(async(err) => {
             setError( await err ? err : false)
+            setWait(false)
         })
     }
     return(
@@ -78,7 +82,7 @@ useEffect(() => {
                 <Input authOpt={authOpt} reqCheck={reqCheck} setReqCheck={setReqCheck} su={true} name={'Name'} inputClass={'signUpTextInput'} inputVal={name} setInputVal={setName}/>
                 <Input authOpt={authOpt} setErr={setError} su={true} reqCheck={reqCheck} setReqCheck={setReqCheck} checkVal={true} name={'Email'} inputClass={'signUpTextInput'} inputVal={email} setInputVal={setEmail}/>
                 <Input authOpt={authOpt} err={error} reqCheck={reqCheck} setReqCheck={setReqCheck} su={true} name={'Password'} inputClass={'signUpTextInput signUpPassInput'} type={'pass'} inputVal={password} setInputVal={setPassword}/>
-                <button disabled={condition || error} className={condition || error ? 'signUpButton signUpDisable' : 'signUpButton'} type='submit'>Sign Up</button>
+                <button disabled={wait || condition || error} className={condition || error ? 'signUpButton signUpDisable' : 'signUpButton'} type='submit'>Sign Up</button>
                 </> : false
                 }
             </form>

@@ -73,7 +73,8 @@ const Input = ({ su, si, err, setErr, type, name, inputVal, setInputVal, inputCl
                     ) && !check2 ? "labelHide blackLabel" : ''}` : ''}`}>{name}</label>
             </div>
             {<p className='signUpError'>{inputVal?.trim() != '' ?
-            (si && err ? <p>Invalid Email or Password</p> : su && name == 'Password' ? 
+            ( 
+            su && name == 'Password' ? 
             err ? <p>Email Already In Use!</p> : temp?.passlength ? <p>Minimum 8 character required!</p> :
             false : su && name == 'Email'? inputVal != '' && temp?.invEmail ? <p>Invalid Email</p> : 
             false : false ) : false }</p>}
