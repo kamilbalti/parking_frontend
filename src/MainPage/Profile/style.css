@@ -1,0 +1,180 @@
+.ProfileMainDiv{
+    width: 100%;
+    height: 100%;
+    padding: 0 10px;
+    padding-top: 24px;
+    display: flex;
+    /* box-sizing: border-box; */
+    overflow: hidden !important;
+    flex-direction: column;
+    align-items: flex-start;
+}
+/* .ProfileMainDiv>div>div{
+    width: 100%;
+} */
+.ProfileCard{
+    display: flex;
+    width: 100%;
+    max-width: 1280px;
+    border-radius: 20px !important;
+    box-shadow: 1px 1px 15px 7px rgb(220, 220, 220) !important;
+    margin-top: 28px;
+    /* overflow: hidden; */
+    /* min-height: fit-content; */
+    /* min-height: 432px; */
+    max-height: calc( 100vh - 50px);
+    height: fit-content !important;
+    padding: 30px;
+}
+.ProfileCard>form{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+}
+.ProfileCard>form> h1{
+    display: flex;
+    font-size: 21px;
+    letter-spacing: 0.3px;
+}
+.ProfileHeading{
+    cursor: pointer;
+    font-size: 25px;
+    /* gap: 3px 8px; */
+    color: rgba(50, 50, 50);
+    width: 100%;
+    /* min-width: 270px; */
+    display: flex;
+    /* background-color: aqua; */
+    flex-wrap: wrap;
+}
+.ProfileHeading>a{
+    /* padding: 0 10px; */
+    padding-right: 8px;
+}
+.ProfileRow{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: flex-start;
+    width: 100%;
+    margin: 19px 0 42px !important;
+    gap: 20px;
+}
+.ProfileColumn{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    font-family: sans-serif;
+    position: relative !important;
+    /* min-width: 250px; */
+    width: calc(50% - 10px);
+    /* max-width: 100% !important; */
+}
+.ProfileChangeColumn{
+    /* min-width: 200px; */
+    width: calc(33.33% - 13.5px) !important;
+    position: relative !important;
+}
+.ProfileColumn > p {
+    /* font-size: 15px; */
+    word-spacing: 0px;
+    letter-spacing: 0.3px;
+}
+.ProfileColumn > input{
+    width: 100%;
+    padding: 12.5px 15px;
+    display: flex;
+    border-radius: 5px;
+    border: 1px solid rgb(160, 160, 160);
+    font-size: 18px;
+}
+.ProfileColumn > input:focus{
+    outline: none;
+    border: 1px solid rgb(100, 100, 100) !important;
+}
+.ProfileColumn > input::selection{
+    background-color: rgba(173, 216, 230, 0.9);
+}
+.ProfileEmailColumn{
+    pointer-events: none !important;
+}
+/* background-color: aqua !important; */
+.ProfileUpdateDiv{
+    width: 100%;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    /* height: 100px; */
+}
+.ProfileUpdate{
+    margin-top: 1px !important;
+    font-family: Arial, Helvetica, sans-serif !important;
+    letter-spacing: 0 !important;
+    color: white !important;
+    border: none !important;
+    padding: 11px 17px !important;
+    border-radius: 4px !important;
+    text-transform: inherit !important;
+    font-weight: bold !important;
+    background-color: black !important;
+    min-width: none !important;
+    font-size: 16px !important;
+}
+.ProfileUpdate:hover{
+    background-color: rgb(20, 20, 20) !important;
+}
+.ProfileEyeIcon{
+    position: absolute;
+    top: 31px !important;
+    right: 5px;
+}
+/* @media screen and (max-width:) */
+@media screen and ( max-width: 800px ) {
+    .ProfileMainDiv{
+        overflow-y: scroll !important;
+        padding: 0 10px;
+        padding-top: 10px;
+    }
+    .ProfileCard::-webkit-scrollbar {
+        width: 0 !important;
+    }
+
+    .ProfileColumn{
+        width: 100% !important;
+    }
+    .ProfileChangeColumn{
+        width: calc(50% - 12px) !important;
+    }
+    .ProfileCard{
+        padding: 20px;
+        margin-top: 15px;
+        overflow-x: hidden !important;
+        overflow: inherit !important;
+        margin-bottom: 5px;
+    }
+    .ProfileRow{
+        gap: 15px;
+        margin: 15px 0 30px !important;
+    }
+    .ProfileUpdate{
+        margin-bottom: 10px !important;
+    }
+}
+@media screen and ( max-width: 600px ) {
+    .ProfileColumn{
+        width: 100% !important;
+    }
+    .ProfileChangeColumn{
+        width: 100% !important;
+    }
+    .ProfileCard{
+        padding: 15px;
+        box-shadow: none !important;
+    }
+    .ProfileCard>form{
+        margin-bottom: 10px !important;
+        /* padding-bottom: 20px !important; */
+    }
+}

@@ -1,0 +1,531 @@
+.MainPageMainDiv {
+    /* top: 65px; */
+    /* position: fixed; */
+    /* top: 0; */
+    /* left: 260px; */
+    /* width: calc(100% - 260px); */
+    width: 100% !important;
+    /* padding: 0 30px; */
+    height: 100vh !important;
+    /* transition: 0.5s ease; */
+    overflow-y: auto;
+    /* opacity: 0.3; */
+    /* filter: grayscale('75%'); */
+    background-color: white !important;
+    /* z-index: 40; */
+    /* background-color: rgba(0, 0, 0, 0.6); */
+}
+
+.MainPageMainDiv::-webkit-scrollbar {
+    width: 13px;
+}
+
+.MainPageMainDiv::-webkit-scrollbar-track {
+    background-color: rgba(200, 200, 200, 0.3);
+    border-radius: 10px;
+}
+
+.MainPageMainDiv::-webkit-scrollbar-thumb {
+    background-color: rgb(255, 200, 50);
+    border-radius: 10px;
+}
+
+.MainPageDiv2 {
+    background: none;
+    z-index: 30;
+    height: 100vh;
+    right: 0;
+    width: calc(100% - 260px) !important;
+    position: absolute !important;
+    right: 0 !important;
+    padding: 0 30px;
+}
+
+.postJobDiv {
+    background-color: black;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-self: center;
+    margin-top: auto;
+    width: 100%;
+    color: white;
+    padding: 10px;
+}
+
+.postJobHead {
+    font-size: 30px;
+}
+
+.postJobChildDiv {
+    width: 100%;
+    max-width: 700px;
+}
+
+.postJobInput {
+    color: black;
+    font-size: 12px;
+    padding: 8px;
+    width: 100%;
+}
+
+.postJobText {
+    width: 100%;
+    height: 200px;
+    resize: none;
+    overflow: hidden;
+    padding: 20px;
+}
+
+.postButton {
+    background-color: gray;
+    color: white;
+    font-weight: bold;
+    margin-top: 5px;
+    padding: 10px 20px;
+    border: none;
+}
+
+.previousJobMainDiv {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start !important;
+    min-height: fit-content;
+    max-height: 100%;
+    width: 100%;
+    max-width: 1280px;
+}
+.previousJobChildDiv{
+    width: 100% !important;
+    max-width: 1280px;
+    width: fit-content;
+    /* background-color: aqua; */
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin: auto;
+}
+.previousJobHeading{
+    width: 100%;
+    display: flex;
+    margin: 24px 0 25px;
+    /* align-items: flex-start; */
+}
+
+.previousJobBox {
+    position: relative;
+    transition: 0.7s ease;
+    margin: 20px 10px;
+    /* margin: auto; */
+    margin-top: 0;
+    border-radius: 20px;
+    color: rgb(0, 0, 0, 0.7);
+    box-shadow: 1px 1px 5px 3px rgba(100, 100, 100, 0.3);
+    height: 260px;
+    overflow: hidden !important;
+    width: calc( 25% - 20px ) !important;
+    /* min-width: 200px; */
+    max-width: 300px;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* justify-content: flex-start; */
+    word-break: break-all;
+    border-radius: 10px;
+    border: 2px solid rgb(85, 85, 85);
+}
+.previousJobBox3{
+    width: 85px !important;
+    background-color: white !important;
+    cursor: pointer;
+    height: 85px !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+}
+.previousJobBoxRed{
+    background-color: rgb(255, 100, 100, 0.7) !important;
+    border: 2px solid rgb(85, 85, 85);
+    /* color: white !important; */
+}
+.previousJobBoxOrange{
+    background-color: rgb(255, 200, 50);
+    border: 2px solid rgb(85, 85, 85);
+}
+.previousJobSelect{
+    border: 2px solid rgb(255, 200, 50);
+    box-shadow: 1px 1px 2px 2px rgb(255, 200, 50);
+    box-shadow: none;
+}
+.previousJobBoxRed>p{
+    color: white !important;
+}
+.subAreaBookButtonDiv{
+    position: fixed;
+    bottom: 0;
+    height: 60px;
+    max-width: 1320px;
+    width: calc(100% - 260px);
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-start;
+    left: 260px;
+    padding: 0 20px;
+}
+.subAreaBookButtonDiv>button{
+    border: none;
+    font-size: 16px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    /* height: 30px; */
+    color: rgb(50, 50, 50);
+    box-shadow: 0 0 7px 2px rgb(130, 130, 130);
+    background-color: rgb(255, 200, 50);
+    border-radius: 8px;
+    padding: 10px 15px;
+}
+.previousJobBox>h1 {
+    width: 100%;
+    font-size: 26px;
+    padding-bottom: 5px;
+    position: absolute;
+    z-index: 20;
+    text-align: center;
+    top: 0;
+    background-color: rgb( 85, 85, 85 );
+    color: white;
+}
+
+.previousJobBox>div, .previousJobBox>form{
+    width: fit-content;
+    display: flex;
+    margin: 0 !important;
+    gap: 0 !important;
+    padding: 0 !important;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+}
+.previousJobBox>div>h3 {
+    width: fit-content;
+    font-weight: 600 !important;
+    font-size: 19px;
+    /* color: white; */
+    color: rgb( 85, 85, 85 );
+}
+
+.previousJobBox::-webkit-scrollbar {
+    width: 13px;
+}
+
+.previousJobBox::-webkit-scrollbar-track {
+    background-color: rgba(200, 200, 200, 0.3);
+    border-radius: 10px;
+}
+
+.previousJobBox::-webkit-scrollbar-thumb {
+    background-color: rgb(255, 200, 50);
+    border-radius: 10px;
+}
+
+.previousJobBox2 {
+    width: 97%;
+    max-width: none;
+    height: fit-content;
+    min-height: 300px;
+}
+
+.previousJobButtonDiv {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    margin-top: 10px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    border-collapse: collapse;
+}
+
+.previousJobButton {
+    width: 50%;
+    /* background-image: linear-gradient(to top, rgb(50, 50, 50), rgb(150, 150, 150), rgb(150, 150, 150), rgb(50, 50, 50)); */
+    font-size: 12px !important;
+    padding: 7px 8px !important;
+    border-radius: 0 !important;
+    bottom: 0 !important;
+    font-weight: 700 !important;
+    background-color: rgba( 85, 85, 85) !important;
+    color: rgba(255, 200, 50, 0.9) !important;
+}
+
+.previousJobButton:hover {
+    /* color: white !important; */
+    background-color: rgba( 100, 100, 100 ) !important;
+    /* background-image: linear-gradient(to top, rgba(50, 50, 50, 0.9), rgb(150, 150, 150), rgba(50, 50, 50, 0.9)); */
+}
+.previousJobButton2{
+    display: flex;
+    flex-direction: row !important;
+    position: absolute !important;
+    bottom: 0;
+    min-width: 100% !important;
+    padding: 0 !important;
+}
+.previousJobButton2>button{
+    width: 100%;
+}
+.previousJobBox>p{
+    color: rgb(100, 100, 100);
+    /* color: rgb(230, 180, 30); */
+}
+
+.previousJobAddIcon{
+    /* font-weight: bold !important; */
+    width: 100px !important;
+    height: 100px !important;
+}
+
+/* .previousCursor{
+    cursor: pointer;
+} */
+
+.previousJobBoxMax{
+    /* border: 0; */
+    position: relative;
+    /* width: 100% !important; */
+    height: 260px !important;
+    padding: 0 !important;
+    /* margin: 0 !important; */
+    gap: 0 !important;
+    transform: translateY(0deg) !important;
+    overflow: hidden;
+    /* background-color: aqua; */
+    /* margin: 0; */
+    /* padding: 0; */
+}
+.previousAbsolute{
+    display: flex;
+    position: absolute;
+    width: 100% !important;
+    /* top: 0; */
+    top: -4px;
+    border: 0 !important;
+    gap: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+.previousJobBoxCarousal{
+    box-shadow: none;
+    top: 0;
+    right: 0 !important;
+    margin: 0 !important;
+    gap: 0 !important;
+    padding: 0 !important;
+    width: 100% !important;
+    border: 0;
+    height: 520px !important;
+    transition: 0.6s ease;
+    position: absolute;
+    /* margin-left: 10px !important; */
+}
+.previousAbsolute>div{
+    height: 780px !important;
+}
+.previousAbsolute2>div{
+    height: 520px !important;
+}
+.previousJobBoxCarousal>div, .previousJobBoxCarousal>form{
+    cursor: pointer;
+    position: relative !important;
+    box-shadow: none;
+    border: 0 !important;
+    margin: 0 !important;
+    gap: 0 !important;
+    padding: 0 !important;
+    width: 100% !important;
+    height: 260px !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.previousNoCursor{
+    padding: 10px 15px !important;
+    padding-right: 10px !important;
+    cursor: auto !important;
+}
+.previousNoCursor>h3{
+    position: absolute;
+    top: 10px;
+}
+.DatePickerDiv{
+    display: flex !important;
+    /* margin: 12px 0 !important; */
+    /* overflow: hidden !important; */
+    width: calc( 100% - 10px )  !important;
+    /* margin: 1%; */
+}
+.DatePickerDiv>div{
+    margin: 3px 0 !important;
+    /* overflow: hidden !important; */
+    width: 100%  !important;
+    /* margin: 1%; */
+}
+.DatePickerDiv>div>div{
+    /* overflow: hidden !important; */
+    min-width: 98%  !important;
+    /* margin: 1%; */
+}
+.DatePickerDiv>div>div>div{
+    /* overflow: hidden !important; */
+    width: 98%  !important;
+    /* margin: 1%; */
+    margin: auto;
+    font-size: 14.5px !important;
+}
+.AllUserTable{
+    overflow: auto;
+    max-width: 1280px;
+    width: 100% !important;
+    padding-right: 10px !important;
+}
+.AllUserTable::-webkit-scrollbar{
+    width: 0 !important;
+}
+.AllUserTable>div>div>div>div>div>table>tbody>tr{
+    height: 65px !important;
+}
+.AllUserTable>div>div>div>div>div>table>tbody>tr>td{
+    min-width: 90px;
+}
+@media screen and (max-width: 1350px){
+    .previousJobBox{
+        width: calc( 33% - 20px ) !important;
+    }
+    .previousJobBox3{
+        width: 85px !important;
+    }
+    .previousAbsolute2{
+        width: 100% !important;
+    }
+    .previousJobBoxCarousal{
+        width: 100% !important;
+    }
+    .MainPageDiv2{
+        padding: 0 15px !important;
+        width: calc(100% - 275px) !important;
+    }
+    .previousAbsolute{
+        width: 100% !important;
+    }
+}
+/* @media screen and (max-width: 1100px){
+    .previousJobBox{
+        width: calc( 50% - 20px ) !important;
+    }
+    .previousAbsolute2{
+        width: 100% !important;
+    }
+    .previousJobBoxCarousal{
+        width: 100% !important;
+    }
+} */
+@media screen and (max-width: 1000px) {
+    .MainPageMainDiv{
+        width: 100%;
+    }
+    .MainPageDiv2{
+        width: 100% !important;
+        padding: 0 10px;
+        /* .MainPageDiv2{ */
+            /* padding: 0 15px !important; */
+        width: calc(100% - 15px) !important;
+        /* } */
+    }
+    .previousAbsolute{
+        width: 100% !important;
+    }
+    /* .previousJobBox{
+        width: calc( 33% - 20px ) !important;
+    } */
+}
+@media screen and (max-width: 800px) {
+    .MainPageMainDiv{
+        width: 100%;
+    }
+    .MainPageDiv2{
+        right: -20px;
+        width: 100% !important;
+        padding: 0 10px !important;
+    }
+    .previousJobBox{
+        width: calc( 50% - 20px ) !important;
+    }
+    .previousJobBox3{
+        margin: 10px;
+        width: 85px !important;
+    }
+    .previousAbsolute2{
+        width: 100% !important;
+    }
+    .previousJobBoxCarousal{
+        width: 100% !important;
+    }
+    .previousJobHeading{
+        margin: 12px 0 10px;
+    }
+    .previousAbsolute{
+        width: 100% !important;
+    }
+    .AllUserTable::-webkit-scrollbar {
+        width: 0 !important;
+    }
+}
+@media screen and (max-width: 600px) {
+    .MainPageMainDiv::-webkit-scrollbar {
+        width: 0;
+    }
+    .MainPageMainDiv{
+        overflow-x: auto;
+    }
+    
+    /* .MainPageMainDiv {
+    } */
+    /* width: 100% !important; */
+    .subAreaBookButtonDiv{
+        left: 0;
+        width: 100% !important;
+    }
+    .previousJobMainDiv{
+        width: 100%;
+        /* margin-right: 10px !important; */
+    }
+    .previousJobChildDiv{
+        /* gap: 10px 0 !important; */
+        width: 100% !important;
+        overflow: hidden !important;
+    }
+    .postButton {
+        padding: 10px;
+    }
+
+    .previousJobBox {
+        width: 100% !important;
+        max-width: 300px;
+        margin: 20px auto;
+        margin-top: 0;
+    }
+    .previousJobBox3{
+        margin: 10px;
+        width: 85px !important;
+    }
+    .previousAbsolute{
+        width: 100% !important;
+    }
+}

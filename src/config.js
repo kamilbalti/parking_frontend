@@ -1,0 +1,1 @@
+export const url = 'https://parkingbackend-production-0243.up.railway.app'
