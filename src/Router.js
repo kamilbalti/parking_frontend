@@ -45,6 +45,10 @@ const MyRouter = () => {
     }, [authCheck])
 
     useEffect(() => {
+        setBookingData('loading')
+        setAllSlotDetail('loading')
+        setAllBookDetail('loading')
+        setAllUserData('loading')
         if (!!temptoken && temptoken != 'false' && temptoken != null) {
             const user = typeof temptoken == 'string' ? JSON.parse(temptoken) : false
             if (user && user != 'false')
