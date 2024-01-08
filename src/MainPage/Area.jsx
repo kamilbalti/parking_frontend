@@ -6,7 +6,7 @@ import axios from 'axios';
 import { Form, Input, Popconfirm, Table } from 'antd';
 import KeyboardBackspace from '@mui/icons-material/KeyboardBackspace';
 import Navbar from '../Navbar/Navbar';
-import Loading from '../Loading';
+// import Loading from '../Loading';
 import { url } from '../config';
 
 
@@ -99,19 +99,20 @@ const EditableCell = ({
 
 
 
-const Area = ({ check2, setCheck2, check, setCheck, selectObj, setSelectObj, closeCheck, setCloseCheck, setSubArea }) => {
-  const { userDetail, area } = useSelector((e) => e)
+const Area = ({ setLoading, check2, setCheck2, check, setCheck, selectObj, setSelectObj, closeCheck, setCloseCheck, setSubArea }) => {
+  const userDetail = useSelector((e) => e?.userDetail)
+  const area = useSelector((e) => e?.area)
   const [ currentPage, setCurrentPage ] = useState(1)
-  const [loading, setLoading] = useState(false)
+  // const [loading, setLoading] = useState(false)
   const [error, setError] = useState(false)
   // const [dataSource, setDataSource] = useState(false)
   const dispatch = useDispatch()
 
 
   const showSubArea = (index2) => {
+    setLoading(true)
     axios.post((`${url}/parking/getSlots`), Object?.values(area)[index2],
     config).then(async (res) => {
-      setLoading(true)
         // console.log(res?.data)
         setError(false)
         let temp = await res?.data ? { ...res?.data } : {}
@@ -141,17 +142,6 @@ const Area = ({ check2, setCheck2, check, setCheck, selectObj, setSelectObj, clo
   useEffect(() => {
     console.log(selectObj, ' SelectObj')
     console.log(selectObj?._id, ' SelectObj')
-      // axios.post((`${url}/parking/getSubArea`), selectObj, config).then(async (res) => {
-      //   dispatch(setArea(res?.data))
-      // let tempData = []
-      // area?.array && area?.array?.map((item, index) => {
-      //   let tempItem = { ...item }
-      //   tempItem.index = index + 1
-      //   tempData.push(tempItem)
-      // })
-      // console.log(tempData, ' Temp Data asildnaos')
-      // dispatch(setArea(tempData))
-    // })
   }, [])
 
   const config = {
@@ -192,16 +182,12 @@ const Area = ({ check2, setCheck2, check, setCheck, selectObj, setSelectObj, clo
   }
   else if (userDetail?.status == 'Admin')
     defaultColumns.push(...[
-      // { title: 'Place Id', dataIndex: '_id', width: '20%' },
       {
         title: 'operation',
         dataIndex: 'operation',
         render: (_, record, index) =>
           area.length >= 1 ? (
             <div className='deleteViewButton'>
-              {/* <Popconfirm title="Sure to delete?" onConfirm={() => handleDelete(record.index)}>
-                <a>Delete</a>
-              </Popconfirm> */}
               <div className='deleteViewButton'>
                 <a onClick={() => showSubArea(index)}>View</a>
               </div>
@@ -245,7 +231,8 @@ const Area = ({ check2, setCheck2, check, setCheck, selectObj, setSelectObj, clo
   };
 
   return (
-    loading? <Loading /> :<div style={{width: '100%'}}>
+    // loading? <Loading /> :
+    <div style={{width: '100%'}}>
       <Navbar closeCheck={closeCheck} setCloseCheck={setCloseCheck} back={true} heading={
       <>
       <a onClick={() => setCheck(false)}>All-Parking</a><a>{' / ' + selectObj?.name}</a>

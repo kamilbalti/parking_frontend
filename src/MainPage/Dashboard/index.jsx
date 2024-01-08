@@ -7,7 +7,6 @@ import { useSelector } from "react-redux";
 import Navbar from "../../Navbar/Navbar";
 import dayjs from "dayjs";
 const Dashboard = ({ closeCheck, setCloseCheck, user, AllBookingDetail, totalSlots }) => {
-    const { userDetail } = useSelector(e => e)
     const [statsOpt, setStatsOpt] = useState(false)
     const [width, setWidth] = useState(window.innerWidth)
     const handleResize = () => {
@@ -22,7 +21,6 @@ const Dashboard = ({ closeCheck, setCloseCheck, user, AllBookingDetail, totalSlo
             (!dayjs(item?.bookstarttime)?.isAfter(dayjs()) && !dayjs(item?.booklasttime)?.isBefore(dayjs())))
         )
     }
-    console.log(AllBookingDetail)
     const todaysAllBookingDetail = CheckFunc(AllBookingDetail)
     // !AllBookingDetail ? false : AllBookingDetail?.filter((item) => dayjs(item?.createdAt)?.isSame(dayjs(), 'day'))
     // const 

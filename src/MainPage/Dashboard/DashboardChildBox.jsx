@@ -10,10 +10,15 @@ const DashboardChildBox = ({ data, parentDivClass, cardClass }) => {
     return (
         <div className={parentDivClass}>
             {data.map((item, index) => (
-                <Card variant="outlined" className={cardClass}>
+                <Card key={index} variant="outlined" className={cardClass}>
                     <Typography className='DashboardColumn DashboardCardIconDiv'>{item?.icon}</Typography>
                     <Typography className='DashboardColumn DashboardTextColumn'>
-                        <p className='DashboardColumnName'><span>{item?.name}</span><span><b>{width ? ` (${item?.num}) ` : false}</b></span></p>
+                        {/* <div className='DashboardColumnName'> */}
+                            <span className="DashboardColumnName">
+                            <span>{item?.name}</span>
+                            <span><b>{width ? ` (${item?.num}) ` : false}</b></span>
+                            </span>
+                        {/* </div> */}
                         <b className='DashboardColumnNum'>{item?.num}</b>
                     </Typography>
                 </Card>

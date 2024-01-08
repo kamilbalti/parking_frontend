@@ -7,6 +7,7 @@ import EventAvailableIcon from '@mui/icons-material/EventAvailable';
 import Slot from './Slot';
 import Navbar from '../Navbar/Navbar';
 import { url } from '../config';
+import Loading from '../Loading';
 
 const SubArea = ({ check, setCheck, timeInfo, timeInfo2, selectObj, setCheck3, closeCheck, setCloseCheck, subArea, setSubArea }) => {
     const [confirm, setConfirm] = useState(false)
@@ -16,9 +17,8 @@ const SubArea = ({ check, setCheck, timeInfo, timeInfo2, selectObj, setCheck3, c
     const [ checkShow, setCheckShow ] = useState(ind)
     const [ check4, setCheck4 ] = useState(false)
     const [error, setError] = useState(false)
-    // useEffect(() => {
-    //     // console.log(checkShow + " " + ind)
-    // },[confirm])
+    const [ loading, setLoading ] = useState(false)
+
     const bookCondition = (item) => { 
     let filteredData = item?.book && Object?.values(item?.book)?.filter((item2, index) =>(
         !dayjs(item2?.booklasttime).isBefore(dayjs()) &&
@@ -33,7 +33,7 @@ const SubArea = ({ check, setCheck, timeInfo, timeInfo2, selectObj, setCheck3, c
     ))
     return filteredData
 }
-    const { userDetail, area } = useSelector(e => e)
+    const { userDetail, area } = useSelector((e) => e)
     const config = {
         headers: {
             'Authorization': `Bearer ${userDetail?.token}`,
@@ -48,6 +48,7 @@ const SubArea = ({ check, setCheck, timeInfo, timeInfo2, selectObj, setCheck3, c
     }
 
     const ShowSlot = () => {
+        setLoading(true)
         axios.post((`${url}/parking/getBook`), subArea?.array[checkShow-1], config).then(async (res2) => {
             let data = await res2?.data ? [...res2?.data?.array] : false
             const dataMap = data && data?.map((item2, index2) => (
@@ -66,8 +67,9 @@ const SubArea = ({ check, setCheck, timeInfo, timeInfo2, selectObj, setCheck3, c
                 Promise.all(dataMap).then(() => {
                 setSlotData(data)
                 setCheck2(ind || checkShow)
+                setLoading(false)
             })
-          })      
+          }).catch(() => setLoading(false))      
     }
 
 
@@ -152,7 +154,8 @@ const SubArea = ({ check, setCheck, timeInfo, timeInfo2, selectObj, setCheck3, c
 
     return (
         <>
-        {check2 ? 
+        { loading? <Loading /> : 
+        check2 ? 
         <Slot check2={check2} setCheck2={setCheck2} setCheck={setCheck} check={check} 
         setCheck3={setCheck3} selectObj={selectObj} subArea={subArea} dataSource={slotData} setDataSource={setSlotData}/>
         : <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', 

@@ -10,7 +10,7 @@ import dayjs from 'dayjs'
 import { url } from '../../config'
 const Profile = ({closeCheck, setCloseCheck, notify}) => {
     const dispatch = useDispatch()
-    const { userDetail } = useSelector(e => e)
+    const userDetail = useSelector((e) => e?.userDetail)
     const [name, setName] = useState(userDetail?.name)
     const email = userDetail?.email
     const [oldPassword, setOldPassword] = useState('')
@@ -36,7 +36,6 @@ const Profile = ({closeCheck, setCloseCheck, notify}) => {
             axios.post((`${url}/profile`), { ...obj }).then(async (res) => {
                 let tempUpdate = { ...res?.data }
                 let temp = { ...userDetail }
-                console.log(res?.data, ' res data Update')
                 if (res?.data?.name)
                     temp.name = tempUpdate?.name
                 else if (res?.data?.password)
@@ -45,7 +44,6 @@ const Profile = ({closeCheck, setCloseCheck, notify}) => {
                 localStorage.setItem("token", temp && JSON.stringify(temp))
                 notify('Profile Updated Successful')
                 dispatch(setUserDetail(temp))
-                console.log(temp, " TempUser Check")
             }).catch((err) => notify(err?.response?.data))
         else 
             (dayjs(userDetail?.updatedAt)?.isSame(dayjs(), 'day'))?

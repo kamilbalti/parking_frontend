@@ -93,7 +93,7 @@ const EditableRow = ({ index, ...props }) => {
 
 
 const Slot = ({ check2, setCheck2, subArea, setCheck, setCheck3, check, selectObj, closeCheck, setCloseCheck, dataSource, setDataSource }) => {
-  const { userDetail, area } = useSelector(e => e)
+  const { userDetail, area } = useSelector((e) => e)
   const config = {
     headers: {
       'Authorization': `Bearer ${userDetail?.token}`,

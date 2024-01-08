@@ -14,7 +14,6 @@ export const parking = createSlice({
     reducers: {
         setUserDetail: (state, action) => {
             state.userDetail = action.payload
-            console.log(state.userDetail, " user data")
         },
         setUserArr: (state, action) => {
             state.userArr = action.payload
@@ -30,9 +29,7 @@ export const parking = createSlice({
         },
         setSlot: (state, action) => {
             state.slot = action.payload
-        },
-        
-        // console.log(state.parkingData, " data")
+        },        
     }
 }
 )

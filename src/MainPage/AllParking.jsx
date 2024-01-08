@@ -9,7 +9,7 @@
 // // import { setParkingData } from "../Redux-Toolkit/ParkingSlice"
 // const AllParking = () => {
 
-//     const { userDetail, parkingData } = useSelector(e => e)
+//     const { userDetail, parkingData } = useSelector((e) => e)
 //     const [ check, setCheck ] = useState(false)
 //     const dispatch = useDispatch()
 //     const [applyInd, setApplyInd] = useState(false)

@@ -9,12 +9,13 @@ import SubArea from './SubArea';
 import Navbar from '../Navbar/Navbar';
 import AddArea from './AddArea';
 import AllParkingCarousal from './AllParkingCarousal';
+import Loading from '../Loading';
 
 const PrevParking = ({ closeCheck, setCloseCheck, notify }) => {
   const [check, setCheck] = useState(false)
   const [check2, setCheck2] = useState(false)
   const [error, setError] = useState(false)
-  const { parkingData, userDetail } = useSelector(e => e)
+  const { parkingData, userDetail } = useSelector((e) => e)
   const [timeInfo, setTimeInfo] = useState(dayjs().add(5, 'minute').format());
   const [timeInfo2, setTimeInfo2] = useState(dayjs().add(10, 'minute').format());
   const [area, setArea] = useState('')
@@ -25,18 +26,19 @@ const PrevParking = ({ closeCheck, setCloseCheck, notify }) => {
   const [applyInd, setApplyInd] = useState(false)
   const [place, setPlace] = useState("")
   const [slots, setSlots] = useState("")
+  const [ loading, setLoading ] = useState(false)
   let deleteInd = false
 
 
 
-  
+
   return (
     <div className='previousJobMainDiv'>
       <div className="previousJobChildDiv">
-        {
+        { loading? <Loading /> :
           check2?.state == 'subareaview' ?
             <SubArea subArea={subArea} setSubArea={setSubArea} selectObj={selectObj} check={check2} setCheck={setCheck2} 
-            timeInfo={timeInfo} timeInfo2={timeInfo2} setCheck3={setCheck}
+            timeInfo={timeInfo} timeInfo2={timeInfo2} setCheck3={setCheck} loading={loading} setLoading={setLoading}
             closeCheck={closeCheck} setCloseCheck={setCloseCheck}/>
             :
             check?.state !== 'userview' ?
@@ -50,7 +52,7 @@ const PrevParking = ({ closeCheck, setCloseCheck, notify }) => {
                     : false
                 }
                 {parkingData && parkingData?.map((item, index) =>
-                  <AllParkingCarousal notify={notify} timeInfo={timeInfo} setSlots={setSlots} setTimeInfo={setTimeInfo}
+                  <AllParkingCarousal loading={loading} setLoading={setLoading} notify={notify} timeInfo={timeInfo} setSlots={setSlots} setTimeInfo={setTimeInfo}
                     setTimeInfo2={setTimeInfo2} index={index} applyInd={applyInd} deleteInd={deleteInd}
                     setApplyInd={setApplyInd} check={check} setCheck={setCheck} timeInfo2={timeInfo2}
                     setCheckAdd={setCheckAdd} checkAdd={checkAdd} selectObj={selectObj} setSelectObj={setSelectObj}
@@ -59,7 +61,7 @@ const PrevParking = ({ closeCheck, setCloseCheck, notify }) => {
                 )}
               </>
               :
-              <Area setSubArea={setSubArea} selectObj={selectObj} setSelectObj={setSelectObj} 
+              <Area loading={loading} setLoading={setLoading} setSubArea={setSubArea} selectObj={selectObj} setSelectObj={setSelectObj} 
               setCheck2={setCheck2} check2={check2} setCheck={setCheck} check={check} closeCheck={closeCheck} setCloseCheck={setCloseCheck} />
         }
       </div>

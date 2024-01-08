@@ -1,6 +1,4 @@
 import './App.css';
-import { useSelector } from 'react-redux';
-import { useState } from 'react';
 import MyRouter from './Router';
 import { BrowserRouter as Router } from 'react-router-dom';
 

@@ -14,6 +14,7 @@ import { Box, Button, ButtonGroup, Modal } from '@mui/material';
 import EventAvailableIcon from '@mui/icons-material/EventAvailable';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import Loading from '../Loading';
+import logo from '../photos/logo.png'
 
 
 
@@ -26,7 +27,7 @@ const AllFeatures = ({ status, closeCheck, setCloseCheck, setAuthCheck
     const [logOutCheck, setLogOutCheck] = useState(false)
     const [select, setSelect] = useState(false)
     const dispatch = useDispatch()
-    const { userDetail } = useSelector(e => e)
+    const userDetail = useSelector((e) => e?.userDetail)
 
     const arr = [
         ["Dashboard", "All Parking", "Booking History", 'Profile'],
@@ -93,7 +94,7 @@ const AllFeatures = ({ status, closeCheck, setCloseCheck, setAuthCheck
                 <div className={"AllFeaturesMainDiv"}>
                     <div onClick={() => navigate('/dashboard')} className='AllFeaturesFirstDiv'>
                         <div className='AllFeaturesMainHeading'>
-                            <img width="65px" src={'https://images.squarespace-cdn.com/content/v1/60d739fb2bd620714a600b92/1624802990567-73K1PHSLLBHG7KU4O6BF/THROO-Ico_Yellow_1024.png?format=500w'} />
+                            <img width="65px" src={logo} />
                             <div>
                                 <h2 className='AllFeaturesHeading2'>ParkEasy</h2>
                                 <p className='AllFeaturesPara'>Parking Made Effortless</p>
@@ -105,7 +106,7 @@ const AllFeatures = ({ status, closeCheck, setCloseCheck, setAuthCheck
                     </h2>
                     <div>
                         {arr[arrNum].map((item, index) =>
-                            <Link onClick={() => setCloseCheck(false)}
+                            <Link key={index} onClick={() => setCloseCheck(false)}
                                 to={`/${item.replace(' ', '-').toLowerCase()}`}
                                 // onClick={() => changeSelect(index)} 
                                 // key={index} 

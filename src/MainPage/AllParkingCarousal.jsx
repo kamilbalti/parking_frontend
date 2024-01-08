@@ -11,7 +11,7 @@ import { url } from '../config';
 
 const AllParkingCarousal = ({ timeInfo, setSlots, setTimeInfo, setTimeInfo2, index, applyInd, deleteInd,
     setApplyInd, check, setCheck, timeInfo2, setCheckAdd, checkAdd, selectObj, setSelectObj,
-    slots, place, setPlace, item, notify }) => {
+    slots, place, setPlace, item, notify, setLoading }) => {
     const postConfig = {
         headers: {
             'Context-Type': 'application/json'
@@ -19,8 +19,8 @@ const AllParkingCarousal = ({ timeInfo, setSlots, setTimeInfo, setTimeInfo2, ind
     }
 
     const dispatch = useDispatch()
-    const [loading, setLoading] = useState(false)
-    const { parkingData, userDetail } = useSelector(e => e)
+    const [loading2, setLoading2] = useState(false)
+    const { parkingData, userDetail } = useSelector((e) => e)
     const minCondition1 = dayjs()
     const submit = ({ e, index }) => {
         e.preventDefault()
@@ -29,7 +29,7 @@ const AllParkingCarousal = ({ timeInfo, setSlots, setTimeInfo, setTimeInfo2, ind
 
 
     const add = (index) => {
-        setLoading(true)
+        setLoading2(true)
         let temp = [...parkingData]
         axios.post((`${url}/parking/addSubArea`),
             { areaName: temp[index].name, subName: place, slots }, postConfig)
@@ -38,14 +38,14 @@ const AllParkingCarousal = ({ timeInfo, setSlots, setTimeInfo, setTimeInfo2, ind
                 temp[index] = res?.data
                 dispatch(setParkingData(temp))
                 notify(`Place added to area ${temp[index]?.name} with ${slots} slots Successful`)
-                setLoading(false)
+                setLoading2(false)
                 setPlace('')
                 setSlots('')
             }).catch((err) => {
                 setCheck(false)
                 setPlace('')
                 setSlots('')
-                setLoading(false)
+                setLoading2(false)
                 notify(!!err?.response?.data ? err?.response?.data : err)
             })
     }
@@ -82,11 +82,13 @@ const AllParkingCarousal = ({ timeInfo, setSlots, setTimeInfo, setTimeInfo2, ind
     }
 
     const showArea = () => {
+        setLoading(true)
         if (userDetail?.status == 'Admin' || allCondition)
             axios.post((`${url}/parking/getSubArea`), parkingData[index], config).then(async (res) => {
                 dispatch(setArea(res?.data?.array))
                 setCheck({ state: "userview", ind: index })
                 setSelectObj(parkingData[index])
+                setLoading(false)
             })
         else notify(`You are not valid because you didn't enter valid time`)
     }
@@ -149,7 +151,7 @@ const AllParkingCarousal = ({ timeInfo, setSlots, setTimeInfo, setTimeInfo2, ind
                         </div>
                     }
                     {
-                        loading ? <Loading /> :
+                        loading2 ? <Loading /> :
                             userDetail?.status == 'Admin' &&
                             <AddPlace submit={submit} index={index} place={place} setPlace={setPlace}
                                 slots={slots} setCheck={setCheck} setSlots={setSlots} />

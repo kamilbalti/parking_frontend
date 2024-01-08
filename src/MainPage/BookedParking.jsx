@@ -5,7 +5,7 @@ import { useSelector } from "react-redux"
 import Navbar from "../Navbar/Navbar"
 
 const BookedParking = ({closeCheck, setCloseCheck, data, setData}) => {
-    const { userDetail } = useSelector((e) => e)
+    const userDetail = useSelector((e) => e?.userDetail)
     const columns = [
         { title: 'Slot', dataIndex: 'slotNo', width: '2%' }, 
         { title: 'Area', dataIndex: 'area', width: '16%' }, { title: 'SubArea', dataIndex: 'subArea', width: '16%' },

@@ -28,11 +28,8 @@ const MyRouter = () => {
     const [authCheck, setAuthCheck] = useState('loading')
     const [check, setCheck] = useState(false)
     const { pathname } = useLocation()
-    // const [user, setUser] = useState(false)
-    // const auth = getAuth();
-    const { userDetail } = useSelector(e => e)
+    const userDetail = useSelector((e) => e?.userDetail)
     const temptoken = localStorage.getItem("token")
-    //  || false;
     const [AllUserData, setAllUserData] = useState('loading');
     const [AllBookDetail, setAllBookDetail] = useState('loading')
     const [AllSlotDetail, setAllSlotDetail] = useState('loading')
@@ -48,13 +45,11 @@ const MyRouter = () => {
     }, [authCheck])
 
     useEffect(() => {
-        // alert(temptoken == null)
         if (!!temptoken && temptoken != 'false' && temptoken != null) {
             const user = typeof temptoken == 'string' ? JSON.parse(temptoken) : false
             if (user && user != 'false')
                 dispatch(setUserDetail((user == "false" || !user) ? false : user))
             else dispatch(setUserDetail(false))
-            console.log((user), " MY TOKEN")
             setCheck(true)
 
             if (user?.token) {
@@ -81,7 +76,7 @@ const MyRouter = () => {
                 axios.post((`${url}/parking/getBookDetail`), { person: user && user?._id }, config).then((res) => {
                     setBookingData(res?.data)
                 }).catch((err) => {
-                    console.log(err)
+                    // console.log(err)
                     setBookingData(false)
                 })
                 axios.get((`${url}/parking/getArea`), config)
@@ -104,31 +99,7 @@ const MyRouter = () => {
             setAllSlotDetail(false)
             setBookingData(false)
         }
-        // alert(String(userDetail) == 'loading')
-        // setInterval(() => {
-        //     if ((userDetail == 'loading' || String(userDetail) == 'loading')) {
-        //         dispatch(setUserDetail(false))
-        //         setAllUserData(false)
-        //         setAllBookDetail(false)
-        //         setAllSlotDetail(false)
-        //         // alert(userDetail)
-        //     }
-        //     // alert(userDetail == 'loading')
-        // }, 5000)
-        // alert( userDetail && userDetail != 'loading')
-        // alert(typeof userDetail)
-        console.log(
-            condition
-            + ' ' +
-            AllSlotDetail != 'loading'
-            + ' ' +
-            BookingData != 'loading'
-            + ' ' +
-            AllUserData != 'loading'
-            + ' ' +
-            AllBookDetail != 'loading'
-        )
-    }, [temptoken, pathname])
+    }, [temptoken])
 
     // useEffect(() => {
     //     // setTimeout(() => {    
@@ -139,44 +110,16 @@ const MyRouter = () => {
     //     // },10000)
 
     // },[])
-    // let check = true
-    // const navigate = useNavigate()
-    // useEffect(()=> {
-    //     onAuthStateChanged(auth, async (user) => {
-    //         if(await user){
-    //             const uid = user.uid
-    //             onValue(ref(db, "users/" + uid + "/userDetail"), (data) => {
-    //                data.val() && 
-    //                data.val()?.block == true ?
-    //                dispatch(setUserDetail(false))
-    //             :
-    //                dispatch(setUserDetail(data.val())) 
-    //             })
-    //         }
-    //         else{
-    //             dispatch(setUserDetail(false))
-    //         }
-    //     })
-    // },[])
-    // let location;
-    // useEffect(() => {
-    //     location = window ? window.location.pathname : '/'
-    // })
-    // console.log("userDetail is ",userDetail)
     const condition = userDetail != 'loading' || String(userDetail) != 'loading'
-    // userDetail && 
     return (
         <div className="App">
-            {/* <Router> */}
             <ToastContainer />
             {userDetail ?
                 <AllFeatures setAuthCheck={setAuthCheck} status={userDetail.status} closeCheck={closeCheck}
                     setCloseCheck={setCloseCheck} name={userDetail.name} />
                 : false}
             <div className={(
-                // closeCheck != true && 
                 !userDetail) ? "MainPageMainDiv" :
-                // closeCheck ? "MainPageMainDiv" :
                 'MainPageMainDiv MainPageDiv2'
             }>
                 {condition &&
@@ -200,14 +143,12 @@ const MyRouter = () => {
                         <Route path={'/users'} element={condition && userDetail ?
                             <AllUser data={AllUserData} setData={setAllUserData} closeCheck={closeCheck} setCloseCheck={setCloseCheck} /> :
                             <Navigate to={'/auth'} />} />
-                        {/* <Route path={'/'} element={condition && userDetail ? <App /> :  <Navigate to={'/auth'} /> } /> */}
                         <Route path={'*'} element={condition && userDetail ? <Navigate to={'/dashboard'} /> : <Navigate to={'/auth'} />} />
                     </Routes>
                     :
                     <Loading />
                 }
             </div>
-            {/* </Router> */}
         </div>
     )
 }

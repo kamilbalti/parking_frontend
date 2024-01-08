@@ -6,7 +6,7 @@ import { setParkingData } from '../Redux-Toolkit/ParkingSlice';
 import { url } from '../config';
 
 const AddArea = ({ checkAdd, setCheckAdd, check, area, setArea, error, setError, notify }) => {
-    const { parkingData, userDetail } = useSelector(e => e)
+    const { parkingData, userDetail } = useSelector((e) => e)
     const dispatch = useDispatch()
     const submit2 = (e) => {
         e.preventDefault()

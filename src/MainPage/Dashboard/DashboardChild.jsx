@@ -14,7 +14,7 @@ import DashboardChildBox from './DashboardChildBox';
 import { useSelector } from 'react-redux';
 // import Loading from '../../Loading';
 const DashboardChild = ({ opt, user, totalBooking, totalSlots }) => {
-    const { userDetail } = useSelector(e => e)
+    const userDetail = useSelector((e) => e?.userDetail)
     const [timeNow, setTimeNow] = useState(false)
     // alert(opt)
     const select = userDetail?.status == 'Admin' ? 0 : 1
@@ -64,30 +64,13 @@ const DashboardChild = ({ opt, user, totalBooking, totalSlots }) => {
         { name: `${!opt ? "Today's " : ''}Booking Active`, num: myActive ? myActive-1 : active, icon: <LocalTaxiIcon className='DashboardCardIcon DashboardMiniCardIcon' /> },
         { name: `${!opt ? "Today's " : ''}Booking Completed`, num: myCompleted ? myCompleted?.length : completed?.length, icon: <CheckCircleOutlineIcon className='DashboardCardIcon DashboardMiniCardIcon' /> },
     ]
-    // const datasets1 = [
-    //     { label: 'Total Earning', value: 980, backgroundColor: '2, 178, 175' },
-    //     { label: 'Total Admin Commision', value: 20, backgroundColor: '46, 150, 255' },
-    // ]
-    // const datasets2 = [
-    //     { label: 'Total Parking', value: 10, backgroundColor: '2, 178, 175' },
-    //     { label: 'Total Booking', value: 30, backgroundColor: '46, 150, 255' },
-    //     { label: 'Total Users', value: 22, backgroundColor: '184, 0, 216' },
-    //     { label: 'Booking Placed', value: 25, backgroundColor: '96, 0, 155' },
-    //     { label: 'Booking Active', value: 42, backgroundColor: '39, 49, 200' },
-    //     { label: 'Booking Completed', value: 10, backgroundColor: '3, 0, 141' },
-    // ]
     return (
-        // earning == 'loading' ? <Loading /> : 
         <div className='DashboardChildParent'>
             <DashboardChildBox data={infoArr[select]} parentDivClass={'DashboardCardParent'}
                 cardClass={'DashboardCard'} />
             <h1 className='ProfileHeading BookDetailHeading'>Booking Details</h1>
             <DashboardChildBox data={bookingInfoArr} parentDivClass={'DashboardCardParent DashboardMiniCardParent'}
                 cardClass={'DashboardCard DashboardMiniCard'} />
-            {/* <div className='DonutChartMainDiv'>
-                <DonutChart dcNo={1} dataset={datasets1} heading={'Sales Statistics'} />
-                <DonutChart dcNo={2} dataset={datasets2} heading={'Service Statistics'} />
-            </div> */}
         </div>
     )
 }
