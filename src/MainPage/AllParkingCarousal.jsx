@@ -62,7 +62,8 @@ const AllParkingCarousal = ({ timeInfo, setSlots, setTimeInfo, setTimeInfo2, ind
     const maxCondition2 = timeInfo2 && dayjs(timeInfo).add(1, 'year')
     const allCondition = !!timeInfo && !!timeInfo2 && !dayjs(timeInfo).isBefore(minCondition1) &&
         !dayjs(timeInfo2).isBefore(!!minCondition2) && !dayjs(timeInfo).isAfter(maxCondition1) &&
-        !dayjs(timeInfo2).isAfter(maxCondition2)
+        !dayjs(timeInfo2).isAfter(maxCondition2) && !dayjs(timeInfo2).isBefore(dayjs(timeInfo)) && 
+        !dayjs(timeInfo2).isBefore(dayjs())
     const setTimeFunc = (e) => {
         if (e)
             setTimeInfo(dayjs(dayjs(e)).format())
@@ -83,14 +84,19 @@ const AllParkingCarousal = ({ timeInfo, setSlots, setTimeInfo, setTimeInfo2, ind
 
     const showArea = () => {
         setLoading(true)
-        if (userDetail?.status == 'Admin' || allCondition)
+        if (userDetail?.status == 'Admin' || 
+        allCondition 
+        )
             axios.post((`${url}/parking/getSubArea`), parkingData[index], config).then(async (res) => {
                 dispatch(setArea(res?.data?.array))
                 setCheck({ state: "userview", ind: index })
                 setSelectObj(parkingData[index])
                 setLoading(false)
             })
-        else notify(`You are not valid because you didn't enter valid time`)
+        else {
+            setLoading(false)
+            notify(`Invalid time Please set the time correctly`)
+        }
     }
 
     return (

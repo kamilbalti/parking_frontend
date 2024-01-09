@@ -9,6 +9,7 @@ import Navbar from '../../Navbar/Navbar'
 import dayjs from 'dayjs'
 import { url } from '../../config'
 const Profile = ({closeCheck, setCloseCheck, notify}) => {
+    const [ disable, setDisable ] = useState(false)
     const dispatch = useDispatch()
     const userDetail = useSelector((e) => e?.userDetail)
     const [name, setName] = useState(userDetail?.name)
@@ -46,7 +47,9 @@ const Profile = ({closeCheck, setCloseCheck, notify}) => {
                 dispatch(setUserDetail(temp))
             }).catch((err) => notify(err?.response?.data))
         else 
-            (dayjs(userDetail?.updatedAt)?.isSame(dayjs(), 'day'))?
+            alert(dayjs(userDetail?.updatedAt)?.format('YYYY-MM-DD'))
+            alert(dayjs()?.format('YYYY-MM-DD'))
+            (dayjs(userDetail?.updatedAt)?.format('YYYY-MM-DD')) === (dayjs()?.format('YYYY-MM-DD'))?
             notify('You can only update your profile once a day') 
             :
             notify( !obj?.newPassword && (!!newPassword || !!confirmPassword || !!oldPassword) ? 
@@ -57,6 +60,7 @@ const Profile = ({closeCheck, setCloseCheck, notify}) => {
             : 
             'All Passwords should be atleast 8 letters!' 
             :!obj?.name  && 'Profile is not Changed Please fill the fields to update Profile!' )
+            setDisable(true)
         // else notify('The Name and Password is upto date')
     }
     return (
@@ -83,7 +87,7 @@ const Profile = ({closeCheck, setCloseCheck, notify}) => {
                         ))}
                     </Typography>
                     <Typography className='ProfileUpdateDiv'>
-                        <Button disabled={(dayjs(userDetail?.updatedAt)?.isSame(dayjs(), 'day') && userDetail?.status != 'User')} type="submit" variant='contained' className='ProfileUpdate'>Update</Button>
+                        <Button disabled={ disable || (dayjs(userDetail?.updatedAt)?.isSame(dayjs(), 'day') && userDetail?.status != 'User')} type="submit" variant='contained' className='ProfileUpdate'>Update</Button>
                     </Typography>
                 </form>
             </Card>

@@ -70,6 +70,7 @@ const MyRouter = () => {
                         'Content-Type': 'application/json'
                     }
                 }
+                if(user?.status === 'Admin')
                 axios.get((`${url}/parking/getUsers`), config).then(async (res) => {
                     let tempData = []
                     res?.data?.filter((item, index) => item?.email != user?.email)?.map((item, index) => {
@@ -78,6 +79,7 @@ const MyRouter = () => {
                     })
                     setAllUserData(tempData)
                 })
+                else setAllUserData(false)
                 axios.get((`${url}/parking/getAllBook`), config).then(async (res) => {
                     setAllBookDetail(res?.data?.flatMap((item, index) => item.array))
                 }, config)

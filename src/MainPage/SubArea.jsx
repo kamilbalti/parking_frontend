@@ -104,13 +104,14 @@ const SubArea = ({ path, setPath, notify, check, setCheck, timeInfo, timeInfo2, 
             config).then(async (res) => {
                 setError(false)
                 let temp = await res?.data ? { ...res?.data } : {}
-                await Object?.values(temp.array).map((item, index) =>
+                const promiseMap = await Object?.values(temp.array).map((item, index) =>
                     axios.post((`${url}/parking/getBook`), item, config).then(async (res2) => {
                         item.book = await res2?.data ? { ...res2?.data?.array }
                             : false
-                        if (index == Object?.values(temp.array)?.length - 1)
-                            setSubArea({ ...temp })
                     }))
+                    Promise.all(promiseMap).then(() => {
+                        setSubArea({ ...temp })
+                    })
             }).catch(async (err) => {
                 alert(err)
                 setError(await err ? err : false)
@@ -131,15 +132,13 @@ const SubArea = ({ path, setPath, notify, check, setCheck, timeInfo, timeInfo2, 
 
 
     const ShowOption = async(item, index) => {
-        if(userDetail?.status != 'User' || !bookCondition(item)?.length){
+        if(userDetail?.status != 'User' ? !!Object.values(item.book)?.length : !bookCondition(item)?.length){
             setInd(index + 1)
             setCheckShow(index + 1)}
             else {
                 setInd(false)
                 setCheckShow(false)
             }
-            //  && 
-            // }
     } 
 
     const ShowOption2 = () => {
