@@ -85,18 +85,11 @@ const SubArea = ({ notify, check, setCheck, timeInfo, timeInfo2, selectObj, setC
             slotObj: subArea
         }, postConfig).then(async (res) => {
             notify('Booking Successful')
+            navigate('/booking-history')
             setWait(false)
-            // let temp = await res?.data ? { ...res?.data } : {}
-            // await Object?.values(temp.array).map((item, index) =>
-            //     axios.post((`${url}/parking/getBook`), item, config).then(async (res2) => {
-            //         item.book = await res2?.data ? { ...res2?.data?.array } : false
-            //         if (index == Object?.values(temp.array)?.length - 1)
-            //             setSubArea({ ...temp })
-            //     }))
             setConfirm(false)
             setInd(false)
             setCheckShow(false)
-            navigate('/booking-history')
         }).catch((err) => {
             notify(err
                 ?.response?.data ? err?.response?.data : err
@@ -138,13 +131,7 @@ const SubArea = ({ notify, check, setCheck, timeInfo, timeInfo2, selectObj, setC
 
 
     const ShowOption = async(item, index) => {
-        if(userDetail?.status == 'User'){
-        let array = await bookCondition(item);
-        await !!array?.length || setInd(index + 1); 
-        setCheckShow(index + 1)
-        }
-        else {
-            if(item?.book) {
+        if(userDetail?.status != 'User' || !bookCondition(item)?.length){
             setInd(index + 1)
             setCheckShow(index + 1)}
             else {
@@ -152,7 +139,7 @@ const SubArea = ({ notify, check, setCheck, timeInfo, timeInfo2, selectObj, setC
                 setCheckShow(false)
             }
             //  && 
-            }
+            // }
     } 
 
     const ShowOption2 = () => {
@@ -215,7 +202,7 @@ const SubArea = ({ notify, check, setCheck, timeInfo, timeInfo2, selectObj, setC
                                 ?
                                 "previousJobBox previousJobBox3 previousJobBoxRed" :
                                 userDetail?.status == 'User' && !!bookCondition(item)?.length ? 
-                                "previousJobBox previousJobBox3 previousJobBoxOrange" : 
+                                "previousJobBox previousJobBox3 previousJobBoxRed" : 
                                 (
                                     ind !== index + 1 ?
                                         "previousJobBox previousJobBox3"
