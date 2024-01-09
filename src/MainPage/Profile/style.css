@@ -127,7 +127,8 @@
 }
 .ProfileEyeIcon{
     position: absolute;
-    top: 31px !important;
+    bottom: 7px !important;
+    padding: 0 3px;
     right: 5px;
 }
 /* @media screen and (max-width:) */

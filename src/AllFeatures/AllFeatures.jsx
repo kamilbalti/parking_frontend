@@ -18,10 +18,10 @@ import logo from '../photos/logo.png'
 
 
 
-const AllFeatures = ({ status, closeCheck, setCloseCheck, setAuthCheck
+const AllFeatures = ({ status, closeCheck, setCloseCheck, setAuthCheck, path, setPath
     // , setSelect, select 
 }) => {
-    const  navigate = useNavigate()
+    // const  navigate = useNavigate()
     const { pathname } = useLocation()
     // const [pathname, setPathname] = useState(typeof window != undefined && window?.location?.pathname)
     const [logOutCheck, setLogOutCheck] = useState(false)
@@ -54,6 +54,7 @@ const AllFeatures = ({ status, closeCheck, setCloseCheck, setAuthCheck
         const token = false
         localStorage.setItem("token", token)
         setAuthCheck(false)
+        setPath('/auth')
         dispatch(setUserDetail(token))
     }
     const style = {
@@ -92,22 +93,26 @@ const AllFeatures = ({ status, closeCheck, setCloseCheck, setAuthCheck
                     </Box>
                 </Modal>
                 <div className={"AllFeaturesMainDiv"}>
-                    <div onClick={() => navigate('/dashboard')} className='AllFeaturesFirstDiv'>
+                    <div className='AllFeaturesFirstDiv'>
                         <div className='AllFeaturesMainHeading'>
-                            <img width="65px" src={logo} />
+                            <img onClick={() => setPath('/dashboard')} width="65px" src={logo} />
                             <div>
                                 <h2 className='AllFeaturesHeading2'>ParkEasy</h2>
                                 <p className='AllFeaturesPara'>Parking Made Effortless</p>
                             </div>
                         </div>
                     </div>
-                    <h2 onClick={() => navigate('/dashboard')} className='AllFeaturesHeading AllFeaturesCenter'>
+                    <h2 onClick={() => setPath('/dashboard')} className='AllFeaturesHeading AllFeaturesCenter'>
                         {userDetail?.status == 'Admin' ? 'Hi Admin' : 'Hi User'}
                     </h2>
                     <div>
                         {arr[arrNum].map((item, index) =>
-                            <Link key={index} onClick={() => setCloseCheck(false)}
-                                to={`/${item.replace(' ', '-').toLowerCase()}`}
+                            <Link key={index} onClick={() => {
+                                setCloseCheck(false)
+                                let tempPath = `/${item.replace(' ', '-').toLowerCase()}`
+                                setPath(tempPath)
+                            }}
+                                // to={`/${item.replace(' ', '-').toLowerCase()}`}
                                 // onClick={() => changeSelect(index)} 
                                 // key={index} 
                                 className={pathname && pathname.includes(`/${item?.replace(' ', '-').toLowerCase()}`) ? 'AllFeaturesHeadingChildDiv AllFeaturesSelect' : 'AllFeaturesHeadingChildDiv'}>

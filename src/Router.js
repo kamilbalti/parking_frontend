@@ -1,6 +1,6 @@
 import * as React from 'react';
 import CircularProgress from '@mui/material/CircularProgress';
-import { Navigate, Route, BrowserRouter as Router, Routes } from "react-router-dom"
+import { Navigate, Route, BrowserRouter as Router, Routes, useNavigate } from "react-router-dom"
 import SignUp from "./auth/SignUp"
 import SignIn from "./auth/SignIn"
 import { useDispatch, useSelector } from "react-redux"
@@ -24,10 +24,11 @@ import { url } from './config';
 
 const MyRouter = () => {
     const dispatch = useDispatch()
+    const [ pathChange, setPathChange ] = useState(false)
     const [closeCheck, setCloseCheck] = useState(false)
     const [authCheck, setAuthCheck] = useState('loading')
     const [check, setCheck] = useState(false)
-    const { pathname } = useLocation()
+    // const { pathname } = useLocation()
     const userDetail = useSelector((e) => e?.userDetail)
     const temptoken = localStorage.getItem("token")
     const [AllUserData, setAllUserData] = useState('loading');
@@ -35,6 +36,7 @@ const MyRouter = () => {
     const [AllSlotDetail, setAllSlotDetail] = useState('loading')
     const [BookingData, setBookingData] = useState('loading')
     const notify = (message) => toast(message)
+    const navigate = useNavigate()
 
     useEffect(() => {
         if (authCheck && authCheck != 'loading') {
@@ -51,11 +53,16 @@ const MyRouter = () => {
         setAllUserData('loading')
         if (!!temptoken && temptoken != 'false' && temptoken != null) {
             const user = typeof temptoken == 'string' ? JSON.parse(temptoken) : false
-            if (user && user != 'false')
+            if (user && user != 'false'){
                 dispatch(setUserDetail((user == "false" || !user) ? false : user))
-            else dispatch(setUserDetail(false))
+                navigate(pathChange)
+            }
+            else {
+                dispatch(setUserDetail(false))
+                navigate(pathChange)
+            }
             setCheck(true)
-
+            
             if (user?.token) {
                 const config = {
                     headers: {
@@ -87,13 +94,15 @@ const MyRouter = () => {
                     .then(async (res) => {
                         dispatch(setParkingData(res?.data))
                     })
-            }
-            else {
+                    navigate(pathChange)
+                }
+                else {
                 dispatch(setUserDetail(false))
                 setAllUserData(false)
                 setAllBookDetail(false)
                 setAllSlotDetail(false)
                 setBookingData(false)
+                navigate(pathChange)
             }
         }
         else {
@@ -103,7 +112,7 @@ const MyRouter = () => {
             setAllSlotDetail(false)
             setBookingData(false)
         }
-    }, [temptoken, pathname])
+    }, [temptoken, pathChange])
 
     // useEffect(() => {
     //     // setTimeout(() => {    
@@ -119,7 +128,7 @@ const MyRouter = () => {
         <div className="App">
             <ToastContainer />
             {userDetail ?
-                <AllFeatures setAuthCheck={setAuthCheck} status={userDetail.status} closeCheck={closeCheck}
+                <AllFeatures path={pathChange} setPath={setPathChange} setAuthCheck={setAuthCheck} status={userDetail.status} closeCheck={closeCheck}
                     setCloseCheck={setCloseCheck} name={userDetail.name} />
                 : false}
             <div className={(
@@ -139,7 +148,7 @@ const MyRouter = () => {
                             <Profile notify={notify} closeCheck={closeCheck} setCloseCheck={setCloseCheck} />
                             : <Navigate to={'/auth'} />} />
                         <Route path={'/all-parking'} element={condition && userDetail ?
-                            <PrevParking notify={notify} closeCheck={closeCheck} setCloseCheck={setCloseCheck} />
+                            <PrevParking path={pathChange} setPath={setPathChange} notify={notify} closeCheck={closeCheck} setCloseCheck={setCloseCheck} />
                             : <Navigate to={'/auth'} />} />
                         <Route path={'/booking-history'} element={condition && userDetail ?
                             <BookedParking data={BookingData} setData={setBookingData} closeCheck={closeCheck} setCloseCheck={setCloseCheck} />

@@ -161,7 +161,7 @@ const Area = ({ setLoading, check2, setCheck2, check, setCheck, selectObj, setSe
     dispatch(setArea(newData));
   };
   let defaultColumns = [
-    { title: 'Name', dataIndex: 'name', width: '25%', editable: userDetail?.status == 'Admin' },
+    { title: 'Name', dataIndex: 'name', width: '25%' },
     { title: 'Total Slots', dataIndex: 'quantity', width: '25%' },
     { title: 'Total Booking', dataIndex: 'bookQuantity', width: '25%' },
   ];

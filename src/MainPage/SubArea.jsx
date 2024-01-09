@@ -10,7 +10,7 @@ import { url } from '../config';
 import Loading from '../Loading';
 import { useNavigate } from 'react-router-dom';
 
-const SubArea = ({ notify, check, setCheck, timeInfo, timeInfo2, selectObj, setCheck3, closeCheck, setCloseCheck, subArea, setSubArea }) => {
+const SubArea = ({ path, setPath, notify, check, setCheck, timeInfo, timeInfo2, selectObj, setCheck3, closeCheck, setCloseCheck, subArea, setSubArea }) => {
     const [confirm, setConfirm] = useState(false)
     const [check2, setCheck2] = useState(false)
     const [ind, setInd] = useState(false)
@@ -20,7 +20,7 @@ const SubArea = ({ notify, check, setCheck, timeInfo, timeInfo2, selectObj, setC
     const [ check4, setCheck4 ] = useState(false)
     const [error, setError] = useState(false)
     const [ loading, setLoading ] = useState(false)
-    const navigate = useNavigate()
+    // const navigate = useNavigate()
 
     const bookCondition = (item) => { 
     let filteredData = item?.book && Object?.values(item?.book)?.filter((item2, index) =>(
@@ -85,7 +85,7 @@ const SubArea = ({ notify, check, setCheck, timeInfo, timeInfo2, selectObj, setC
             slotObj: subArea
         }, postConfig).then(async (res) => {
             notify('Booking Successful')
-            navigate('/booking-history')
+            setPath('/booking-history')
             setWait(false)
             setConfirm(false)
             setInd(false)

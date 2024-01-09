@@ -7,7 +7,8 @@ const AllUser = ({closeCheck, setCloseCheck, data, setData}) => {
     { title: 'Index', dataIndex: 'index', width: '20%' }, { title: 'User Id', dataIndex: '_id', width: '20%' },
     { title: 'Name', dataIndex: 'name', width: '20%' }, { title: 'Email', dataIndex: 'email', width: '20%' }
   ];
-  const [tableParams, setTableParams] = useState({ pagination: { current: 1, pageSize: 10 } });
+  
+  const [tableParams, setTableParams] = useState( data?.length > 10 ? { pagination: { current: 1, pageSize: 10 } } : false);
 
   const handleTableChange = (pagination, filters, sorter) => {
     setTableParams({ pagination, filters, ...sorter });

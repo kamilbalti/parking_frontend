@@ -29,15 +29,11 @@ const SignIn = ({setAuthCheck}) => {
     const notify = (message) => toast(message)
     const LogIn = (e) => {
         setWait(true)
-        // dispatch(setUserDetail('loading'))
-        // const response = 
         axios.post((`${url}/auth/logIn`), {
             email, password
         }).then(async (res) => {
-            // console.log(res.data)
             setAuthCheck('Login')
             localStorage.setItem("token", res.data && JSON.stringify(res.data))
-            // notify('Login Successful')
             dispatch(setUserDetail(res.data ? res.data : false))
             setWait(false)
         }).catch(async (err) => {
@@ -61,7 +57,6 @@ const SignIn = ({setAuthCheck}) => {
             <Option divClass={'OptionDiv'} option={option} setOpt={setAuthOpt} opt={authOpt} cl={authOpt ? 'right' : 'left'} />
             <div className="signUpDiv2">
             <div className="signUpDiv3" style={{transform: `translateX(${authOpt? 'calc(-50% - 25px)' : '0%'})`}}>
-                {/* <p className='forgetPara'><Link className='forgetPara' to={'/forget-password'}>Forgot Password</Link></p> */}
             <form className='authDiv' onSubmit={Submit}>
                 <h1 className='authHeading authHeading1'>LOGIN</h1>
                 <>

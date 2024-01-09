@@ -47,7 +47,10 @@
     position: relative;
     padding: 34px 0 0 30px;
     margin: auto;
-    cursor: pointer;
+    /* cursor: pointer; */
+}
+.AllFeaturesFirstDiv>div>img{
+    cursor: pointer;    
 }
 .AllFeaturesMainDiv>h2{
     cursor: pointer;

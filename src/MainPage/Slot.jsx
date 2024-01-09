@@ -121,7 +121,7 @@ const Slot = ({ check2, setCheck2, subArea, setCheck, setCheck3, check, selectOb
     { title: 'Name', dataIndex: 'name', width: '20%' },
     { title: 'Email', dataIndex: 'email', width: '20%' },
     { title: 'Starting Time', dataIndex: 'bookstarttime', width: '20%' },
-    { title: 'Ending Time', dataIndex: 'booklasttime', width: '20%' },
+    { title: 'Ending Time', dataIndex: 'booklasttime', width: '20%' }
   ];
   if (userDetail?.status == 'User') {
     defaultColumns.push(...[

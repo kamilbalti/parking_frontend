@@ -11,7 +11,7 @@ import AddArea from './AddArea';
 import AllParkingCarousal from './AllParkingCarousal';
 import Loading from '../Loading';
 
-const PrevParking = ({ closeCheck, setCloseCheck, notify }) => {
+const PrevParking = ({ closeCheck, setCloseCheck, notify, path, setPath }) => {
   const [check, setCheck] = useState(false)
   const [check2, setCheck2] = useState(false)
   const [error, setError] = useState(false)
@@ -37,7 +37,7 @@ const PrevParking = ({ closeCheck, setCloseCheck, notify }) => {
       <div className="previousJobChildDiv">
         { loading? <Loading /> :
           check2?.state == 'subareaview' ?
-            <SubArea notify={notify} subArea={subArea} setSubArea={setSubArea} selectObj={selectObj} check={check2} setCheck={setCheck2} 
+            <SubArea path={path} setPath={setPath} notify={notify} subArea={subArea} setSubArea={setSubArea} selectObj={selectObj} check={check2} setCheck={setCheck2} 
             timeInfo={timeInfo} timeInfo2={timeInfo2} setCheck3={setCheck} loading={loading} setLoading={setLoading}
             closeCheck={closeCheck} setCloseCheck={setCloseCheck}/>
             :
