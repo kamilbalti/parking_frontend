@@ -19,7 +19,7 @@ const DateTimeInput = ({timeInfo, timeInfo2, setTimeFunc, setTimeFunc2, minCondi
                         value={dayjs(new Date(timeInfo2 ? timeInfo2 : timeInfo))}
                         format={'DD-MM-YYYY hh:mm A'}
                         onChange={ timeInfo2 ? setTimeFunc2 : setTimeFunc}
-                        label="Ending Time"
+                        label={timeInfo2? "Ending Time" : 'Starting Time'}
                         viewRenderers={{
                             hours: renderTimeViewClock,
                             minutes: renderTimeViewClock,
