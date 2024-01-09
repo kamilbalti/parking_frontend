@@ -298,39 +298,6 @@ background-color: aqua; */
     padding: 15px
 
 }
-/* svg{
-    width: 100% !important;
-    max-width: 300px !important;
-    min-width: 20px;
-    box-sizing: border-box !important;
-}
-svg>g{
-    margin: 0 auto !important;
-}
-g{
-    width: 250px;
-    height: 250px;
-} */
-/* svg g{
-    max-width: 100%;
-    min-width: 400px !important;
-    width: 100% !important;
-}
-.DonutChart>div>svg{
-    width: 100% !important;
-    height: 500px !important;
-}
-.DonutChart>div>svg>g{
-    max-width: 100% !important;
-    min-width: 250px !important;
-    width: 100% !important;
-    height: 100% !important;
-} */
-/* .DonutChart2>canvas{
-    width: 70% !important;
-    height: 70% !important;
-    margin-top: 35px;
-} */
 @media screen and (max-width: 1150px){
     .DashboardCard{
         width: calc(50% - 15px);
@@ -345,9 +312,17 @@ g{
     }
 }
 @media screen and (max-width: 750px){
+    .DashboardChildParent{
+        padding: 0;
+    }
+    .DashboardCardParent{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
     .DashboardCard{
-        min-width: 200px !important;
         width: 100%;
+        min-width: 200px !important;
         max-width: 500px;
     }
 }
@@ -363,7 +338,9 @@ g{
         padding: 1.5px 5px;
     } 
     .DashboardCard{
-        padding: 10px 0;
+        padding: 10px 5px;
+        display: flex;
+        align-items: center;
     }
     .DashboardSecondFixDivChild::-webkit-scrollbar {
         width: 0 !important;
@@ -395,9 +372,20 @@ g{
     }
 
 }
+@media screen and (max-width: 750px){
+    .BookDetailHeading{
+        width: fit-content !important;
+        margin-left: calc((100% - 500px)/2);
+    }
+}
 @media screen and (max-width: 600px){
     .DashboardChildParent{
         padding: 0;
+    }
+}
+@media screen and (max-width: 500px){
+    .BookDetailHeading{
+        margin-left: 0;
     }
 }
 @media screen and (max-width: 350px){
@@ -406,8 +394,5 @@ g{
     }
     .DashboardColumnName>span>b{
         display: inline;
-        /* width: fit-content;
-        display: flex;
-        flex-direction: row; */
     }
 }
