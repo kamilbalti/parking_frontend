@@ -3,6 +3,7 @@ import { BsFillEyeFill, BsFillEyeSlashFill } from "react-icons/bs"
 
 const Input = ({ su, si, err, setErr, type, name, inputVal, setInputVal, inputClass, checkVal, reqCheck, setReqCheck, authOpt }) => {
     const [passBorder, setPassBorder] = useState(false)
+    const [ change, setChange ] = useState(false)
     // const [isTyping, setIsTyping] = useState(false)
     const [check, setCheck] = useState(false)
     const [passType, setPassType] = useState('password')
@@ -28,6 +29,12 @@ const Input = ({ su, si, err, setErr, type, name, inputVal, setInputVal, inputCl
         }
     }
     useEffect(() => {
+        setInterval(() => {
+            if(!!inputVal && inputVal || change !== inputVal){
+            setChange(inputVal)}
+        },10000)
+    },[])
+    useEffect(() => {
         setCheck(false)
         setCheck2(false)
     }, [authOpt])
@@ -37,7 +44,12 @@ const Input = ({ su, si, err, setErr, type, name, inputVal, setInputVal, inputCl
             checkEmail(e)
             try {
                 // setIsTyping(false)
-                setInputVal(e.target.value)
+                let val = e?.target?.value;
+                // alert(val)
+            if(val?.length <= 35){
+                setInputVal(val)
+            }
+                   //  e.target.value.length <= 25 &&
             }
             catch (err) {
                 console.log(err, 'err')
@@ -104,7 +116,7 @@ const Input = ({ su, si, err, setErr, type, name, inputVal, setInputVal, inputCl
             </div>
             {<p className='signUpError'>{inputVal?.trim() != '' ?
                 (
-                    su && name == 'Password' ?
+                    (!!change && change == inputVal && su && name == 'Password') ?
                         err ? <p>Email Already In Use!</p> : (temp?.passlength) ? <p>Minimum 8 character required!</p> :
                             false : su && name == 'Email' ? inputVal != '' && (temp?.invEmail) ? <p>Invalid Email</p> :
                                 false : false) : false}</p>}

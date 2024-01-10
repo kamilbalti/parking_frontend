@@ -20,7 +20,8 @@ const AllParkingCarousal = ({ timeInfo, setSlots, setTimeInfo, setTimeInfo2, ind
 
     const dispatch = useDispatch()
     const [loading2, setLoading2] = useState(false)
-    const { parkingData, userDetail } = useSelector((e) => e)
+    const [loading3, setLoading3] = useState(false)
+    const { parkingData, userDetail, area } = useSelector((e) => e)
     const minCondition1 = dayjs()
     const submit = ({ e, index }) => {
         e.preventDefault()
@@ -31,23 +32,29 @@ const AllParkingCarousal = ({ timeInfo, setSlots, setTimeInfo, setTimeInfo2, ind
     const add = (index) => {
         setLoading2(true)
         let temp = [...parkingData]
-        axios.post((`${url}/parking/addSubArea`),
-            { areaName: temp[index].name, subName: place, slots }, postConfig)
-            .then(async (res) => {
-                let temp = [...parkingData]
-                temp[index] = res?.data
-                dispatch(setParkingData(temp))
-                notify(`Place added to area ${temp[index]?.name} with ${slots} slots Successful`)
-                setLoading2(false)
-                setPlace('')
-                setSlots('')
-            }).catch((err) => {
-                setCheck(false)
-                setPlace('')
-                setSlots('')
-                setLoading2(false)
-                notify(!!err?.response?.data ? err?.response?.data : err)
-            })
+        if (!!place?.trim() && slots > 0)
+            axios.post((`${url}/parking/addSubArea`),
+                { areaName: temp[index].name, subName: place.trim(), slots }, postConfig)
+                .then(async (res) => {
+                    let temp = [...parkingData]
+                    temp[index] = res?.data
+                    dispatch(setParkingData(temp))
+                    notify(`Place added to area ${temp[index]?.name} with ${slots} slots Successful`)
+                    setLoading2(false)
+                    setPlace('')
+                    setSlots('')
+                    setCheck(false)
+                }).catch((err) => {
+                    setCheck(false)
+                    setPlace('')
+                    setSlots('')
+                    setLoading2(false)
+                    notify(!!err?.response?.data ? err?.response?.data : err)
+                })
+        else {
+            setLoading2(false)
+            notify('You may forgot to Enter the data')
+        }
     }
 
 
@@ -62,7 +69,7 @@ const AllParkingCarousal = ({ timeInfo, setSlots, setTimeInfo, setTimeInfo2, ind
     const maxCondition2 = timeInfo2 && dayjs(timeInfo).add(1, 'year')
     const allCondition = !!timeInfo && !!timeInfo2 && !dayjs(timeInfo).isBefore(minCondition1) &&
         !dayjs(timeInfo2).isBefore(!!minCondition2) && !dayjs(timeInfo).isAfter(maxCondition1) &&
-        !dayjs(timeInfo2).isAfter(maxCondition2) && !dayjs(timeInfo2).isBefore(dayjs(timeInfo)) && 
+        !dayjs(timeInfo2).isAfter(maxCondition2) && !dayjs(timeInfo2).isBefore(dayjs(timeInfo)) &&
         !dayjs(timeInfo2).isBefore(dayjs())
     const setTimeFunc = (e) => {
         if (e)
@@ -81,18 +88,30 @@ const AllParkingCarousal = ({ timeInfo, setSlots, setTimeInfo, setTimeInfo2, ind
             'Context-Type': 'application/json'
         }
     }
-
+    const showParking = () => {
+        setSelectObj(parkingData[index])
+        axios.post((`${url}/parking/getSubArea`), parkingData[index], config).then(async (res) => {
+            dispatch(setArea(res?.data?.array))
+            setCheck({ state: "view", ind: index })
+            setTimeInfo(dayjs(dayjs().add(5, 'minute')).format())
+            setTimeInfo2(dayjs(dayjs().add(10, 'minute')).format())
+            setLoading(false)
+            setLoading3(false)
+        })
+        // return area
+    }
     const showArea = () => {
         setLoading(true)
-        if (userDetail?.status == 'Admin' || 
-        allCondition 
-        )
+        if (userDetail?.status == 'Admin' ||
+            allCondition
+        ) {
             axios.post((`${url}/parking/getSubArea`), parkingData[index], config).then(async (res) => {
                 dispatch(setArea(res?.data?.array))
                 setCheck({ state: "userview", ind: index })
                 setSelectObj(parkingData[index])
                 setLoading(false)
             })
+        }
         else {
             setLoading(false)
             notify(`Invalid time Please set the time correctly`)
@@ -114,21 +133,30 @@ const AllParkingCarousal = ({ timeInfo, setSlots, setTimeInfo, setTimeInfo2, ind
                 }} className="previousJobBox previousJobBoxCarousal">
                     <div className='previousJobBox'>
                         <h3 style={{ display: 'flex', width: `calc(100% - 30px)` }}>Booking Schedule:</h3>
-                        <DateTimeInput minCondition={minCondition1} maxCondition={maxCondition1} timeInfo={timeInfo} setTimeFunc={setTimeFunc} />
-                        <DateTimeInput minCondition={minCondition2} maxCondition={maxCondition2} timeInfo={timeInfo} timeInfo2={timeInfo2} setTimeFunc2={setTimeFunc2} />
+                        {!!selectObj && !area?.length ?
+                            // <div className='previousJobBox'>
+                            <b>No slots are available here</b>
+                            // </div>
+                            :
+                            <>
+                                <DateTimeInput minCondition={minCondition1} maxCondition={maxCondition1} timeInfo={timeInfo} setTimeFunc={setTimeFunc} />
+                                <DateTimeInput minCondition={minCondition2} maxCondition={maxCondition2} timeInfo={timeInfo} timeInfo2={timeInfo2} setTimeFunc2={setTimeFunc2} />
+                            </>}
                         <div className='previousJobButtonDiv previousJobButton2'>
                             <Button className="previousJobButton" onClick={() => {
                                 setCheck({ state: "test", ind: index })
                                 setCheckAdd(0)
                             }
                             } variant="contained">Back</Button>
-                            <Button className="previousJobButton" onClick={showArea} variant="contained">View</Button>
+                            {!!selectObj && !!area?.length ? <Button className="previousJobButton" onClick={showArea} variant="contained">View</Button> : false}
                         </div>
                     </div>
                     {userDetail?.status == 'Admin' ? <div
                         className='previousJobBox'
                     >
-                        <div>
+                        { loading3? <Loading /> : 
+                            <>
+                            <div>
                             <h3>Total Places: {item?.areaQuantity}</h3>
                             <h3>Total Slots: {item?.slotQuantity}</h3>
                         </div>
@@ -140,6 +168,8 @@ const AllParkingCarousal = ({ timeInfo, setSlots, setTimeInfo, setTimeInfo2, ind
                             <Button className="previousJobButton" onClick={showArea}
                                 variant="contained">View</Button>
                         </div>
+                        </>
+                        }
                     </div> :
                         <div className='previousJobBox'>
                             <div>
@@ -148,11 +178,10 @@ const AllParkingCarousal = ({ timeInfo, setSlots, setTimeInfo, setTimeInfo2, ind
                             </div>
                             <div className='previousJobButtonDiv previousJobButton2'>
                                 <Button className="previousJobButton" onClick={() => {
-                                    setSelectObj(parkingData[index])
-                                    setCheck({ state: "view", ind: index })
-                                    setTimeInfo(dayjs(dayjs().add(5, 'minute')).format())
-                                    setTimeInfo2(dayjs(dayjs().add(10, 'minute')).format())
-                                }} variant="contained">View More</Button>
+                                    setLoading3(true)
+                                    showParking()
+                                }}
+                                    variant="contained">View More</Button>
                             </div>
                         </div>
                     }

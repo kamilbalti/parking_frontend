@@ -20,7 +20,8 @@ const AddArea = ({ checkAdd, setCheckAdd, check, area, setArea, error, setError,
     
     const addArea = () => {
         let temp = [...parkingData]
-        axios.post((`${url}/parking/addArea`), { name: area }, postConfig).then(async (res) => {
+        if(!!area?.trim())
+        axios.post((`${url}/parking/addArea`), { name: area.trim() }, postConfig).then(async (res) => {
             setError(false)
             temp.push(res?.data ? { ...res?.data } : {})
             dispatch(setParkingData(temp))
@@ -30,6 +31,7 @@ const AddArea = ({ checkAdd, setCheckAdd, check, area, setArea, error, setError,
             // alert(err)
             setError(await err ? err : false)
         })
+        else notify('You forgot to enter the name of Area')
         setArea("")
         setCheckAdd(0)
     }

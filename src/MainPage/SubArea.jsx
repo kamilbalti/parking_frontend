@@ -113,7 +113,7 @@ const SubArea = ({ path, setPath, notify, check, setCheck, timeInfo, timeInfo2, 
                         setSubArea({ ...temp })
                     })
             }).catch(async (err) => {
-                alert(err)
+                notify(err)
                 setError(await err ? err : false)
             })
     }
@@ -151,7 +151,7 @@ const SubArea = ({ path, setPath, notify, check, setCheck, timeInfo, timeInfo2, 
         <>
         { loading || wait? <Loading /> : 
         check2 ? 
-        <Slot check2={check2} setCheck2={setCheck2} setCheck={setCheck} check={check} 
+        <Slot closeCheck={closeCheck} setCloseCheck={setCloseCheck} check2={check2} setCheck2={setCheck2} setCheck={setCheck} check={check} 
         setCheck3={setCheck3} selectObj={selectObj} subArea={subArea} dataSource={slotData} setDataSource={setSlotData}/>
         : <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', 
             width: '100%', height: '100%', maxWidth: '1280px' }}>

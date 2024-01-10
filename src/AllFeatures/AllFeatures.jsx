@@ -21,13 +21,14 @@ import logo from '../photos/logo.png'
 const AllFeatures = ({ status, closeCheck, setCloseCheck, setAuthCheck, path, setPath
     // , setSelect, select 
 }) => {
+    const userDetail = useSelector((e) => e?.userDetail)
+    const name = (userDetail?.name.split(' ')[0])?.split('')?.filter((_, index) => index <= 8)?.join('')
     // const  navigate = useNavigate()
     const { pathname } = useLocation()
     // const [pathname, setPathname] = useState(typeof window != undefined && window?.location?.pathname)
     const [logOutCheck, setLogOutCheck] = useState(false)
     const [select, setSelect] = useState(false)
     const dispatch = useDispatch()
-    const userDetail = useSelector((e) => e?.userDetail)
 
     const arr = [
         ["Dashboard", "All Parking", "Booking History", 'Profile'],
@@ -103,7 +104,7 @@ const AllFeatures = ({ status, closeCheck, setCloseCheck, setAuthCheck, path, se
                         </div>
                     </div>
                     <h2 onClick={() => setPath('/dashboard')} className='AllFeaturesHeading AllFeaturesCenter'>
-                        {userDetail?.status == 'Admin' ? 'Hi Admin' : 'Hi User'}
+                        {userDetail?.status == 'Admin' ? `Hi ${name}` : `Hi ${name}`}
                     </h2>
                     <div>
                         {arr[arrNum].map((item, index) =>

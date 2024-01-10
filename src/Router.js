@@ -1,5 +1,4 @@
 import * as React from 'react';
-import CircularProgress from '@mui/material/CircularProgress';
 import { Navigate, Route, BrowserRouter as Router, Routes, useNavigate } from "react-router-dom"
 import SignUp from "./auth/SignUp"
 import SignIn from "./auth/SignIn"

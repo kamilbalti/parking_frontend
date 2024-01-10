@@ -99,7 +99,7 @@ const EditableCell = ({
 
 
 
-const Area = ({ setLoading, check2, setCheck2, check, setCheck, selectObj, setSelectObj, closeCheck, setCloseCheck, setSubArea }) => {
+const Area = ({ notify, setLoading, check2, setCheck2, check, setCheck, selectObj, setSelectObj, closeCheck, setCloseCheck, setSubArea }) => {
   const userDetail = useSelector((e) => e?.userDetail)
   const area = useSelector((e) => e?.area)
   const [ currentPage, setCurrentPage ] = useState(1)
@@ -128,7 +128,7 @@ const Area = ({ setLoading, check2, setCheck2, check, setCheck, selectObj, setSe
               setLoading(false)
             }).catch((error) => console.log(error))
     }).catch(async (err) => {
-        alert(err)
+        notify(err)
         setError(await err ? err : false)
         setCheck2(false)
         setLoading(false)
@@ -137,12 +137,6 @@ const Area = ({ setLoading, check2, setCheck2, check, setCheck, selectObj, setSe
     }
     
 
-
-
-  useEffect(() => {
-    console.log(selectObj, ' SelectObj')
-    console.log(selectObj?._id, ' SelectObj')
-  }, [])
 
   const config = {
     headers: {

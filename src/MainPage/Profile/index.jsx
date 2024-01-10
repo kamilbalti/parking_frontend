@@ -8,8 +8,8 @@ import { setUserDetail } from '../../Redux-Toolkit/ParkingSlice'
 import Navbar from '../../Navbar/Navbar'
 import dayjs from 'dayjs'
 import { url } from '../../config'
-const Profile = ({closeCheck, setCloseCheck, notify}) => {
-    const [ disable, setDisable ] = useState(false)
+const Profile = ({ closeCheck, setCloseCheck, notify }) => {
+    const [disable, setDisable] = useState(false)
     const dispatch = useDispatch()
     const userDetail = useSelector((e) => e?.userDetail)
     const [name, setName] = useState(userDetail?.name)
@@ -27,41 +27,46 @@ const Profile = ({closeCheck, setCloseCheck, notify}) => {
     }
     const update = () => {
         let obj = { email: userDetail?.email, password: oldPassword }
-        // alert(dayjs(userDetail?.updatedAt)?.isSame(dayjs(), 'day'))
         if (userDetail?.name !== name)
             obj['name'] = name
         if (newPassword == confirmPassword && newPassword?.length >= 8 && oldPassword?.length >= 8)
             obj['newPassword'] = newPassword
-        // else notify('Password not match')
-        if (Object?.values(obj)?.length != 2 && (!dayjs(userDetail?.updatedAt)?.isSame(dayjs(), 'day') || userDetail?.status === 'Admin'))
+        if (Object?.values(obj)?.length != 2 && ((!dayjs(userDetail?.updatedAt)?.isSame(dayjs(), 'day') || userDetail?.status === 'Admin'))) {
+            setDisable(false)
             axios.post((`${url}/profile`), { ...obj }).then(async (res) => {
                 let tempUpdate = { ...res?.data }
                 let temp = { ...userDetail }
-                if (res?.data?.name)
+                if (res?.data?.name) {
                     temp.name = tempUpdate?.name
-                else if (res?.data?.password)
+                    temp.updatedAt = tempUpdate?.updatedAt
+                }
+                else if(res?.data?.name == '')
+                    notify(`You can't set name Empty`)
+                else if (res?.data?.password) {
                     temp.password = tempUpdate?.password
-                // console.log(res?.data, 'mydata')
-                localStorage.setItem("token", temp && JSON.stringify(temp))
-                notify('Profile Updated Successful')
-                dispatch(setUserDetail(temp))
+                    temp.updatedAt = tempUpdate?.updatedAt
+                }
+                // notify('')
+                if (res?.data?.name || res?.data?.password) {
+                    localStorage.setItem("token", temp && JSON.stringify(temp))
+                    notify('Profile Updated Successful')
+                    dispatch(setUserDetail(temp))
+                }
             }).catch((err) => notify(err?.response?.data))
-        else 
-            alert(dayjs(userDetail?.updatedAt)?.format('YYYY-MM-DD'))
-            alert(dayjs()?.format('YYYY-MM-DD'))
-            (dayjs(userDetail?.updatedAt)?.format('YYYY-MM-DD')) === (dayjs()?.format('YYYY-MM-DD'))?
-            notify('You can only update your profile once a day') 
-            :
-            notify( !obj?.newPassword && (!!newPassword || !!confirmPassword || !!oldPassword) ? 
-            // oldPassword === newPassword ? 
-            // "The Password is not Updated because new Password is same as old password!" : 
-            newPassword != confirmPassword ? 
-            "New Password and Confirm Password Doesn't Match!" 
-            : 
-            'All Passwords should be atleast 8 letters!' 
-            :!obj?.name  && 'Profile is not Changed Please fill the fields to update Profile!' )
-            setDisable(true)
-        // else notify('The Name and Password is upto date')
+        }
+        else
+            ((dayjs(userDetail?.updatedAt)?.format('YYYY-MM-DD')) === (dayjs()?.format('YYYY-MM-DD'))
+                && userDetail?.status !== 'Admin') ?
+                notify('You can only update your profile once a day')
+                :
+                notify(!obj?.newPassword && (!!newPassword || !!confirmPassword || !!oldPassword) ?
+                    newPassword != confirmPassword ?
+                        "New Password and Confirm Password Doesn't Match!"
+                        :
+                        'All Passwords should be atleast 8 letters!'
+                    : !obj?.name && 'Profile is not Changed Please fill the fields to update Profile!')
+        // if(userDetail?.status == 'User')
+        setDisable(true)
     }
     return (
         <div className="ProfileMainDiv">
@@ -74,7 +79,9 @@ const Profile = ({closeCheck, setCloseCheck, notify}) => {
                             <Typography className={`ProfileColumn ${item?.name == 'Email' ? 'ProfileEmailColumn' : ''}`}>
                                 <p>{item?.name} *</p>
                                 <input disabled={item?.name == 'Email'} type="text" placeholder={'Enter ' + item?.name.toLowerCase()} value={item?.inputVal} onChange={(e) => {
-                                    item?.name !== "Email" &&
+                                    if (userDetail?.status === 'Admin')
+                                        setDisable(false)
+                                    item?.name !== "Email" && e.target.value?.length <= 35 &&
                                         item?.setInputVal(e.target.value)
                                 }} />
                             </Typography>
@@ -83,11 +90,11 @@ const Profile = ({closeCheck, setCloseCheck, notify}) => {
                     <h1 className='ProfileHeading'>Change Password</h1>
                     <Typography className="ProfileRow">
                         {changePassword?.map((item, index) => (
-                            <ProfileInput item={item} />
+                            <ProfileInput setDisable={setDisable} item={item} />
                         ))}
                     </Typography>
                     <Typography className='ProfileUpdateDiv'>
-                        <Button disabled={ disable || (dayjs(userDetail?.updatedAt)?.isSame(dayjs(), 'day') && userDetail?.status != 'User')} type="submit" variant='contained' className='ProfileUpdate'>Update</Button>
+                        <Button disabled={disable} type="submit" variant='contained' className='ProfileUpdate'>Update</Button>
                     </Typography>
                 </form>
             </Card>

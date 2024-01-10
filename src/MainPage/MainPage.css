@@ -118,11 +118,12 @@
     position: relative;
     transition: 0.7s ease;
     margin: 20px 10px;
+    cursor: auto;
     /* margin: auto; */
     margin-top: 0;
-    border-radius: 20px;
+    /* border-radius: 20px; */
     color: rgb(0, 0, 0, 0.7);
-    box-shadow: 1px 1px 5px 3px rgba(100, 100, 100, 0.3);
+    /* box-shadow: 0 0 5px 2px rgb(255, 200, 50); */
     height: 260px;
     overflow: hidden !important;
     width: calc( 25% - 20px ) !important;
@@ -135,9 +136,12 @@
     /* justify-content: flex-start; */
     word-break: break-all;
     border-radius: 10px;
+    /* border: 1px solid black; */
     border: 2px solid rgb(85, 85, 85);
 }
 .previousJobBox3{
+    border: 2px solid rgb(100, 100, 100);
+    border-radius: 10px;
     width: 85px !important;
     background-color: white !important;
     cursor: pointer;
@@ -314,8 +318,10 @@
     display: flex;
     position: absolute;
     width: 100% !important;
+    /* height: 235px !important; */
+    box-shadow: none;
     /* top: 0; */
-    top: -4px;
+    top: -2px;
     border: 0 !important;
     gap: 0 !important;
     margin: 0 !important;
@@ -451,6 +457,15 @@
     }
     .previousAbsolute{
         width: 100% !important;
+    }
+    .previousJobMainDiv{
+        width: fit-content;
+        margin: auto;
+    }
+    .previousJobChildDiv{
+        display: flex;
+        justify-content: center;
+        max-width: fit-content !important;
     }
     /* .previousJobBox{
         width: calc( 33% - 20px ) !important;
