@@ -18,14 +18,11 @@ const PrevParking = ({ closeCheck, setCloseCheck, notify, path, setPath }) => {
   const { parkingData, userDetail } = useSelector((e) => e)
   const [timeInfo, setTimeInfo] = useState(dayjs().add(5, 'minute').format());
   const [timeInfo2, setTimeInfo2] = useState(dayjs().add(10, 'minute').format());
-  const [area, setArea] = useState('')
   const [ subArea, setSubArea ] = useState(false)
   const [checkAdd, setCheckAdd] = useState(0)
   const [selectObj, setSelectObj] = useState(false)
   const dispatch = useDispatch()
   const [applyInd, setApplyInd] = useState(false)
-  const [place, setPlace] = useState("")
-  const [slots, setSlots] = useState("")
   const [ loading, setLoading ] = useState(false)
   let deleteInd = false
 
@@ -47,16 +44,16 @@ const PrevParking = ({ closeCheck, setCloseCheck, notify, path, setPath }) => {
                 closeCheck={closeCheck} setCloseCheck={setCloseCheck}/>
                 {
                   userDetail?.status == 'Admin' ?
-                    <AddArea notify={notify} error={error} setError={setError} check={check} area={area} setArea={setArea} checkAdd={checkAdd}
+                    <AddArea notify={notify} error={error} setError={setError} check={check} checkAdd={checkAdd}
                       setCheckAdd={setCheckAdd} />
                     : false
                 }
                 {parkingData && parkingData?.map((item, index) =>
-                  <AllParkingCarousal loading={loading} setLoading={setLoading} notify={notify} timeInfo={timeInfo} setSlots={setSlots} setTimeInfo={setTimeInfo}
+                  <AllParkingCarousal loading={loading} setLoading={setLoading} notify={notify} timeInfo={timeInfo} setTimeInfo={setTimeInfo}
                     setTimeInfo2={setTimeInfo2} index={index} applyInd={applyInd} deleteInd={deleteInd}
                     setApplyInd={setApplyInd} check={check} setCheck={setCheck} timeInfo2={timeInfo2}
                     setCheckAdd={setCheckAdd} checkAdd={checkAdd} selectObj={selectObj} setSelectObj={setSelectObj}
-                    slots={slots} place={place} setPlace={setPlace} item={item}
+                    item={item}
                   />
                 )}
               </>

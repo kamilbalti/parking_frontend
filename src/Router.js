@@ -23,7 +23,7 @@ import { url } from './config';
 
 const MyRouter = () => {
     const dispatch = useDispatch()
-    const [ pathChange, setPathChange ] = useState(false)
+    const [pathChange, setPathChange] = useState(false)
     const [closeCheck, setCloseCheck] = useState(false)
     const [authCheck, setAuthCheck] = useState('loading')
     const [check, setCheck] = useState(false)
@@ -52,16 +52,10 @@ const MyRouter = () => {
         setAllUserData('loading')
         if (!!temptoken && temptoken != 'false' && temptoken != null) {
             const user = typeof temptoken == 'string' ? JSON.parse(temptoken) : false
-            if (user && user != 'false'){
-                dispatch(setUserDetail((user == "false" || !user) ? false : user))
-                navigate(pathChange)
-            }
-            else {
-                dispatch(setUserDetail(false))
-                navigate(pathChange)
-            }
+            if (user && user != 'false')
+            dispatch(setUserDetail((user == "false" || !user) ? false : user))
+            else dispatch(setUserDetail(false))
             setCheck(true)
-            
             if (user?.token) {
                 const config = {
                     headers: {
@@ -69,15 +63,15 @@ const MyRouter = () => {
                         'Content-Type': 'application/json'
                     }
                 }
-                if(user?.status === 'Admin')
-                axios.get((`${url}/parking/getUsers`), config).then(async (res) => {
-                    let tempData = []
-                    res?.data?.filter((item, index) => item?.email != user?.email)?.map((item, index) => {
-                        item.index = index + 1
-                        tempData.push(item)
+                if (user?.status === 'Admin')
+                    axios.get((`${url}/parking/getUsers`), config).then(async (res) => {
+                        let tempData = []
+                        res?.data?.filter((item, index) => item?.email != user?.email)?.map((item, index) => {
+                            item.index = index + 1
+                            tempData.push(item)
+                        })
+                        setAllUserData(tempData)
                     })
-                    setAllUserData(tempData)
-                })
                 else setAllUserData(false)
                 axios.get((`${url}/parking/getAllBook`), config).then(async (res) => {
                     setAllBookDetail(res?.data?.flatMap((item, index) => item.array))
@@ -88,22 +82,19 @@ const MyRouter = () => {
                 axios.post((`${url}/parking/getBookDetail`), { person: user && user?._id }, config).then((res) => {
                     setBookingData(res?.data)
                 }).catch((err) => {
-                    // console.log(err)
                     setBookingData(false)
                 })
                 axios.get((`${url}/parking/getArea`), config)
                     .then(async (res) => {
                         dispatch(setParkingData(res?.data))
                     })
-                    navigate(pathChange)
-                }
-                else {
+            }
+            else {
                 dispatch(setUserDetail(false))
                 setAllUserData(false)
                 setAllBookDetail(false)
                 setAllSlotDetail(false)
                 setBookingData(false)
-                navigate(pathChange)
             }
         }
         else {
@@ -114,6 +105,9 @@ const MyRouter = () => {
             setBookingData(false)
         }
     }, [temptoken, pathChange])
+    useEffect(() => {
+        navigate(pathChange)
+    }, [pathChange])
 
     // useEffect(() => {
     //     // setTimeout(() => {    

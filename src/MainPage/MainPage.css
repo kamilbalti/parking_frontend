@@ -459,13 +459,13 @@
         width: 100% !important;
     }
     .previousJobMainDiv{
-        width: fit-content;
-        margin: auto;
+        /* width: fit-content;
+        margin: auto; */
     }
     .previousJobChildDiv{
         display: flex;
         justify-content: center;
-        max-width: fit-content !important;
+        /* max-width: fit-content !important; */
     }
     /* .previousJobBox{
         width: calc( 33% - 20px ) !important;

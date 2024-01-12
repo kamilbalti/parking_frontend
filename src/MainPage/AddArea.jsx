@@ -4,8 +4,10 @@ import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { setParkingData } from '../Redux-Toolkit/ParkingSlice';
 import { url } from '../config';
+import { useState } from 'react';
 
-const AddArea = ({ checkAdd, setCheckAdd, check, area, setArea, error, setError, notify }) => {
+const AddArea = ({ checkAdd, setCheckAdd, check, error, setError, notify }) => {
+    const [area, setArea] = useState('')
     const { parkingData, userDetail } = useSelector((e) => e)
     const dispatch = useDispatch()
     const submit2 = (e) => {

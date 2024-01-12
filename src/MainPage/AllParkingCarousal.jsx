@@ -9,9 +9,12 @@ import Loading from '../Loading';
 import { useState } from 'react';
 import { url } from '../config';
 
-const AllParkingCarousal = ({ timeInfo, setSlots, setTimeInfo, setTimeInfo2, index, applyInd, deleteInd,
+const AllParkingCarousal = ({ timeInfo, setTimeInfo, setTimeInfo2, index, applyInd, deleteInd,
     setApplyInd, check, setCheck, timeInfo2, setCheckAdd, checkAdd, selectObj, setSelectObj,
-    slots, place, setPlace, item, notify, setLoading }) => {
+    item, notify, setLoading }) => {
+    const [place, setPlace] = useState("")
+    const [slots, setSlots] = useState("")
+
     const postConfig = {
         headers: {
             'Context-Type': 'application/json'
@@ -154,21 +157,21 @@ const AllParkingCarousal = ({ timeInfo, setSlots, setTimeInfo, setTimeInfo2, ind
                     {userDetail?.status == 'Admin' ? <div
                         className='previousJobBox'
                     >
-                        { loading3? <Loading /> : 
+                        {loading3 ? <Loading /> :
                             <>
-                            <div>
-                            <h3>Total Places: {item?.areaQuantity}</h3>
-                            <h3>Total Slots: {item?.slotQuantity}</h3>
-                        </div>
-                        <div className='previousJobButtonDiv previousJobButton2'>
-                            <Button className="previousJobButton" onClick={() => {
-                                setCheck({ state: "add", ind: index })
-                            }
-                            } variant="contained">Add place</Button>
-                            <Button className="previousJobButton" onClick={showArea}
-                                variant="contained">View</Button>
-                        </div>
-                        </>
+                                <div>
+                                    <h3>Total Places: {item?.areaQuantity}</h3>
+                                    <h3>Total Slots: {item?.slotQuantity}</h3>
+                                </div>
+                                <div className='previousJobButtonDiv previousJobButton2'>
+                                    <Button className="previousJobButton" onClick={() => {
+                                        setCheck({ state: "add", ind: index })
+                                    }
+                                    } variant="contained">Add place</Button>
+                                    <Button className="previousJobButton" onClick={showArea}
+                                        variant="contained">View</Button>
+                                </div>
+                            </>
                         }
                     </div> :
                         <div className='previousJobBox'>

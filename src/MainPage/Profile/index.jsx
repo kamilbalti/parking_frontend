@@ -65,7 +65,6 @@ const Profile = ({ closeCheck, setCloseCheck, notify }) => {
                         :
                         'All Passwords should be atleast 8 letters!'
                     : !obj?.name && 'Profile is not Changed Please fill the fields to update Profile!')
-        // if(userDetail?.status == 'User')
         setDisable(true)
     }
     return (
@@ -79,7 +78,7 @@ const Profile = ({ closeCheck, setCloseCheck, notify }) => {
                             <Typography className={`ProfileColumn ${item?.name == 'Email' ? 'ProfileEmailColumn' : ''}`}>
                                 <p>{item?.name} *</p>
                                 <input disabled={item?.name == 'Email'} type="text" placeholder={'Enter ' + item?.name.toLowerCase()} value={item?.inputVal} onChange={(e) => {
-                                    if (userDetail?.status === 'Admin')
+                                    if (userDetail?.status === 'Admin' && disable)
                                         setDisable(false)
                                     item?.name !== "Email" && e.target.value?.length <= 35 &&
                                         item?.setInputVal(e.target.value)
@@ -90,7 +89,7 @@ const Profile = ({ closeCheck, setCloseCheck, notify }) => {
                     <h1 className='ProfileHeading'>Change Password</h1>
                     <Typography className="ProfileRow">
                         {changePassword?.map((item, index) => (
-                            <ProfileInput setDisable={setDisable} item={item} />
+                            <ProfileInput disable={disable} setDisable={setDisable} item={item} />
                         ))}
                     </Typography>
                     <Typography className='ProfileUpdateDiv'>
