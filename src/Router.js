@@ -50,6 +50,8 @@ const MyRouter = () => {
         setAllSlotDetail('loading')
         setAllBookDetail('loading')
         setAllUserData('loading')
+        // console.log(temptoken, ' token')
+        // localStorage.setItem("token", 'false')
         if (!!temptoken && temptoken != 'false' && temptoken != null) {
             const user = typeof temptoken == 'string' ? JSON.parse(temptoken) : false
             if (user && user != 'false')
