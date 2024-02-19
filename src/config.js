@@ -1,1 +1,1 @@
-export const url = 'https://parkingbackend-production-0243.up.railway.app'
+export const url = 'https://parking-app-cy-0dbc5aa09492.herokuapp.com/'
