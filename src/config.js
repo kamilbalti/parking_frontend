@@ -1,1 +1,1 @@
-export const url = 'https://parkingbackend-production-0243.up.railway.app'
+export const url = 'https://parking-backend-jatq2v9af-kamilbaltis-projects.vercel.app'

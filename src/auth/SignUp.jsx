@@ -57,7 +57,7 @@ useEffect(() => {
     const CreateUser = () => {
         setWait(true)
         const response = axios.post((`${url}/auth/register`),{
-            email, password, name
+            email, userPassword: password, name
         }, config).then(async(res) => {
             setError(false)
             console.log( await res.data)

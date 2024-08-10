@@ -30,7 +30,7 @@ const SignIn = ({setAuthCheck}) => {
     const LogIn = (e) => {
         setWait(true)
         axios.post((`${url}/auth/logIn`), {
-            email, password
+            email, userPassword: password
         }).then(async (res) => {
             setAuthCheck('Login')
             localStorage.setItem("token", res.data && JSON.stringify(res.data))
